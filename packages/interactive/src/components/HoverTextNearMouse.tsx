@@ -45,9 +45,9 @@ export class HoverTextNearMouse extends React.Component<HoverTextNearMouseProps,
         this.updateTextSize();
     }
 
-    public componentDidUpdate() {
-        this.updateTextSize();
-    }
+    //   public componentDidUpdate() {
+    //     this.updateTextSize()
+    //   }
 
     public render() {
         const { text } = this.props;

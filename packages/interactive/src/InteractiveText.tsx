@@ -9,8 +9,8 @@ interface InteractiveTextProps {
     readonly onDragComplete?: (e: React.MouseEvent, newTextList: any[], moreProps: any) => void;
     readonly onSelect?: (e: React.MouseEvent, interactives: any[], moreProps: any) => void;
     readonly defaultText: {
-        readonly bgFill: string;
-        readonly bgOpacity: number;
+        readonly bgFill?: string;
+        readonly bgOpacity?: number;
         readonly bgStrokeWidth?: number;
         readonly bgStroke?: string;
         readonly textFill: string;

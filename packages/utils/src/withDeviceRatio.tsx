@@ -1,15 +1,15 @@
 import * as React from "react";
 
 export interface WithRatioProps {
-    readonly ratio: number;
+    readonly ratio?: number;
 }
 
 export interface WithRatioState {
-    ratio: number;
+    ratio?: number;
 }
 
 export const withDeviceRatio = () => {
-    return <TProps extends WithRatioProps>(OriginalComponent: React.ComponentClass<TProps>) => {
+    return <TProps extends WithRatioProps>(OriginalComponent: React.ComponentClass<TProps> | React.FC<TProps>) => {
         return class WithRatio extends React.Component<Omit<TProps, "ratio">, WithRatioState> {
             public readonly ref = React.createRef<HTMLCanvasElement>();
 

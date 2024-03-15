@@ -92,6 +92,7 @@ export interface ChartCanvasContextType<TXAxis extends number | Date> {
     subscribe: (id: string | number, rest: any) => void;
     unsubscribe: (id: string | number) => void;
     setCursorClass: (className: string | null | undefined) => void;
+    customStyles: any;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -114,15 +115,17 @@ export const chartCanvasContextDefaultValue: ChartCanvasContextType<number | Dat
     width: 0,
     xAccessor: () => 0,
     xScale: noop,
+    customStyles: {},
 };
 export const ChartCanvasContext =
     React.createContext<ChartCanvasContextType<number | Date>>(chartCanvasContextDefaultValue);
 
 const getDimensions = <TXAxis extends number | Date>(props: ChartCanvasProps<TXAxis>) => {
-    const { margin, height, width } = props;
+    const { margin, height, width, customStyles } = props;
     return {
         height: height - margin.top - margin.bottom,
         width: width - margin.left - margin.right,
+        customStyles,
     };
 };
 
@@ -391,6 +394,7 @@ export interface ChartCanvasProps<TXAxis extends number | Date> {
     readonly zIndex?: number;
     readonly zoomAnchor?: (options: IZoomAnchorOptions<any, TXAxis>) => TXAxis;
     readonly zoomMultiplier?: number;
+    readonly customStyles?: any;
 }
 
 interface ChartCanvasState<TXAxis extends number | Date> {
@@ -452,7 +456,11 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     private readonly eventCaptureRef = React.createRef<EventCapture>();
     private finalPinch?: boolean;
     private lastSubscriptionId = 0;
-    private mutableState: MutableState = { mouseXY: [0, 0], currentCharts: [], currentItem: null };
+    private mutableState: MutableState = {
+        mouseXY: [0, 0],
+        currentCharts: [],
+        currentItem: null,
+    };
     private panInProgress = false;
     private prevMouseXY?: number[];
     private subscriptions: Subscription[] = [];
@@ -736,7 +744,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
 
             this.finalPinch = undefined;
 
-            this.clearThreeCanvas();
+            // this.clearThreeCanvas()
             const firstItem = head(fullData);
             const scale_start = head(xScale.domain());
             const data_start = xAccessor(firstItem);
@@ -792,7 +800,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
         const currentItem = getCurrentItem(xScale, xAccessor, mouseXY, plotData);
         const currentCharts = getCurrentCharts(chartConfigs, mouseXY);
 
-        this.clearThreeCanvas();
+        // this.clearThreeCanvas()
 
         const firstItem = head(fullData);
         const scale_start = head(xScale.domain());
@@ -847,7 +855,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
 
     public xAxisZoom = (newDomain: any) => {
         const { xScale, plotData, chartConfigs } = this.calculateStateForDomain(newDomain);
-        this.clearThreeCanvas();
+        // this.clearThreeCanvas()
 
         const { xAccessor, fullData } = this.state;
         const firstItem = head(fullData);
@@ -882,7 +890,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     };
 
     public yAxisZoom = (chartId: string, newDomain: any) => {
-        this.clearThreeCanvas();
+        // this.clearThreeCanvas()
         const { chartConfigs: initialChartConfig } = this.state;
         const chartConfigs = initialChartConfig.map((each: any) => {
             if (each.id === chartId) {
@@ -921,7 +929,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     };
 
     public redraw = () => {
-        this.clearThreeCanvas();
+        // this.clearThreeCanvas()
         this.draw({ force: true });
     };
 
@@ -1041,7 +1049,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
 
             const { onLoadAfter, onLoadBefore } = this.props;
 
-            this.clearThreeCanvas();
+            // this.clearThreeCanvas()
 
             this.setState(
                 {
@@ -1201,6 +1209,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             getMutableState: this.getMutableState,
             amIOnTop: this.amIOnTop,
             setCursorClass: this.setCursorClass,
+            customStyles: dimensions.customStyles,
         };
     }
 
@@ -1223,7 +1232,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
         });
 
         if (changed) {
-            this.clearThreeCanvas();
+            // this.clearThreeCanvas()
             this.setState({
                 chartConfigs: newChartConfig,
             });
@@ -1250,6 +1259,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             defaultFocus,
             ratio,
             mouseMoveEvent,
+            customStyles,
         } = this.props;
 
         const { plotData, xScale, xAccessor, chartConfigs } = this.state;
@@ -1265,7 +1275,12 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
         return (
             <ChartCanvasContext.Provider value={this.getContextValues()}>
                 <div
-                    style={{ position: "relative", width, height }}
+                    style={{
+                        position: "relative",
+                        width,
+                        height,
+                        ...customStyles,
+                    }}
                     className={className}
                     onClick={onClick}
                     onDoubleClick={onDoubleClick}

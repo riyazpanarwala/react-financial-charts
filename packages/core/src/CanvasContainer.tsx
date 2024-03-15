@@ -31,7 +31,11 @@ export class CanvasContainer extends React.PureComponent<CanvasContainerProps> {
 
         const adjustedWidth = width * ratio;
         const adjustedHeight = height * ratio;
-        const canvasStyle: React.CSSProperties = { position: "absolute", width, height };
+        const canvasStyle: React.CSSProperties = {
+            position: "absolute",
+            width,
+            height,
+        };
 
         return (
             <div style={{ ...style, position: "absolute" }}>

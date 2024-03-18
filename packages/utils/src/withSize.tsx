@@ -2,8 +2,8 @@ import * as React from "react";
 import AutoSizer, { Props as AutoSizerProps } from "react-virtualized-auto-sizer";
 
 export interface WithSizeProps {
-    readonly width: number;
-    readonly height: number;
+    readonly width?: number;
+    readonly height?: number;
 }
 
 export const withSize = (props?: Omit<AutoSizerProps, "children">) => {

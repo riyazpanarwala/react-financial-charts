@@ -8,6 +8,7 @@ interface InteractiveTextProps {
     readonly onChoosePosition: (e: React.MouseEvent, newText: any, moreProps: any) => void;
     readonly onDragComplete?: (e: React.MouseEvent, newTextList: any[], moreProps: any) => void;
     readonly onSelect?: (e: React.MouseEvent, interactives: any[], moreProps: any) => void;
+    readonly onDoubleClick?: (e: React.MouseEvent, newTextList: any[], moreProps: any) => void;
     readonly defaultText: {
         readonly bgFill?: string;
         readonly bgOpacity?: number;
@@ -106,6 +107,7 @@ export class InteractiveText extends React.Component<InteractiveTextProps, Inter
                 })}
                 <GenericChartComponent
                     onClick={this.handleDraw}
+                    onDoubleClick={this.handleDoubleClick}
                     canvasToDraw={getMouseCanvas}
                     drawOn={["mousemove", "pan"]}
                 />
@@ -113,6 +115,13 @@ export class InteractiveText extends React.Component<InteractiveTextProps, Inter
             </g>
         );
     }
+
+    private readonly handleDoubleClick = (e: React.MouseEvent, moreProps: any) => {
+        const { onDoubleClick, textList } = this.props;
+        if (onDoubleClick !== undefined) {
+            onDoubleClick(e, textList, moreProps);
+        }
+    };
 
     private readonly handleDraw = (e: React.MouseEvent, moreProps: any) => {
         const { enabled } = this.props;

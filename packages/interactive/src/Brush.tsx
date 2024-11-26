@@ -14,6 +14,8 @@ interface BrushProps {
     readonly fillStyle?: string;
     readonly interactiveState: object;
     readonly strokeDashArray?: strokeDashTypes;
+    readonly fillOpacity?: number;
+    readonly strokeOpacity?: number;
 }
 
 interface BrushState {

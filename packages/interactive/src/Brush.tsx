@@ -30,6 +30,8 @@ export class Brush extends React.Component<BrushProps, BrushState> {
         strokeStyle: "#000000",
         fillStyle: "#3h3h3h",
         strokeDashArray: "ShortDash",
+        fillOpacity: 0.3,
+        strokeOpacity: 1,
     };
 
     private zoomHappening?: boolean;
@@ -72,6 +74,22 @@ export class Brush extends React.Component<BrushProps, BrushState> {
         );
     }
 
+    private readonly hexToRGBA = (inputHex: any, opacity: any) => {
+        const hex = inputHex.replace("#", "");
+        if (inputHex.indexOf("#") > -1 && (hex.length === 3 || hex.length === 6)) {
+            const multiplier = hex.length === 3 ? 1 : 2;
+
+            const r = parseInt(hex.substring(0, 1 * multiplier), 16);
+            const g = parseInt(hex.substring(1 * multiplier, 2 * multiplier), 16);
+            const b = parseInt(hex.substring(2 * multiplier, 3 * multiplier), 16);
+
+            const result = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+
+            return result;
+        }
+        return inputHex;
+    };
+
     private readonly drawOnCanvas = (ctx: CanvasRenderingContext2D) => {
         const { rect } = this.state;
         if (rect === null) {
@@ -83,12 +101,13 @@ export class Brush extends React.Component<BrushProps, BrushState> {
             strokeStyle = Brush.defaultProps.strokeStyle,
             fillStyle = Brush.defaultProps.fillStyle,
             strokeDashArray,
+            strokeOpacity = Brush.defaultProps.strokeOpacity,
+            fillOpacity = Brush.defaultProps.fillOpacity,
         } = this.props;
 
         const dashArray = getStrokeDasharrayCanvas(strokeDashArray);
-
-        ctx.strokeStyle = strokeStyle;
-        ctx.fillStyle = fillStyle;
+        ctx.strokeStyle = this.hexToRGBA(strokeStyle, strokeOpacity);
+        ctx.fillStyle = this.hexToRGBA(fillStyle, fillOpacity);
         ctx.setLineDash(dashArray);
         ctx.beginPath();
         ctx.fillRect(x, y, width, height);

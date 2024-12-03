@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-    getStrokeDasharrayCanvas,
+    // getStrokeDasharrayCanvas,
     getMouseCanvas,
     GenericChartComponent,
     strokeDashTypes,
@@ -27,6 +27,9 @@ interface MeasurementState {
     selected?: boolean;
     start?: any;
     x1y1?: any;
+    difference?: any;
+    percentage?: any;
+    isComplete?: boolean;
 }
 
 export class Measurement extends React.Component<MeasurementProps, MeasurementState> {
@@ -42,8 +45,6 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
         fillStyleLoss: "#ff0000",
     };
 
-    private zoomHappening?: boolean;
-
     public constructor(props: MeasurementProps) {
         super(props);
 
@@ -54,7 +55,6 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
     }
 
     public terminate() {
-        this.zoomHappening = false;
         this.setState({
             x1y1: null,
             start: null,
@@ -107,8 +107,7 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
         const { x, y, height, width } = rect;
         const {
             strokeStyle = Measurement.defaultProps.strokeStyle,
-            fillStyle = Measurement.defaultProps.fillStyle,
-            strokeDashArray,
+            // strokeDashArray,
             strokeOpacity = Measurement.defaultProps.strokeOpacity,
             fillOpacity = Measurement.defaultProps.fillOpacity,
             textFillStyle = Measurement.defaultProps.textFillStyle,
@@ -116,7 +115,7 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
             fillStyleLoss = Measurement.defaultProps.fillStyleLoss,
         } = this.props;
 
-        const dashArray = getStrokeDasharrayCanvas(strokeDashArray);
+        // const dashArray = getStrokeDasharrayCanvas(strokeDashArray);
         ctx.strokeStyle = this.hexToRGBA(strokeStyle, strokeOpacity);
 
         if (this.state.difference > 0) {
@@ -140,7 +139,6 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
     };
 
     private readonly handleZoomStart = (_: React.MouseEvent, moreProps: any) => {
-        this.zoomHappening = false;
         const {
             mouseXY: [, mouseY],
             currentItem,
@@ -166,8 +164,6 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
         if (this.state.x1y1 == null || this.state.isComplete) {
             return;
         }
-
-        this.zoomHappening = true;
 
         const {
             mouseXY: [, mouseY],

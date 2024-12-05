@@ -130,11 +130,14 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
         ctx.strokeRect(x, y, width, height);
 
         if (this.state.difference) {
+            const { end, start } = this.state;
+            const barCount = end.item.idx.index - start.item.idx.index;
             ctx.fillStyle = textFillStyle;
-            ctx.font = "16px Georgia";
-            // ctx.textAlign = "center";
+            ctx.font = "14px Georgia";
+            ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(`${this.state.difference} (${this.state.percentage}%)`, x, y + height / 2);
+            ctx.fillText(`${this.state.difference} (${this.state.percentage}%)`, x + width / 2, y + height / 2);
+            ctx.fillText(`${barCount} bars`, x + width / 2, y + 20 + height / 2);
         }
     };
 

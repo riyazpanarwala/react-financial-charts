@@ -14,9 +14,10 @@ import {
     withSize,
     isDefined,
     isNotDefined,
-    InteractiveYCoordinate,
+    ClickCallback,
 } from "react-financial-charts";
 import { IOHLCData, withOHLCData } from "../../data";
+import LongPosition from "./longPosition";
 
 interface ChartProps {
     readonly data: IOHLCData[];
@@ -27,85 +28,19 @@ interface ChartProps {
 
 let interactiveNodes: any = {};
 
-const alert = {
-    ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate,
-    text: "Target",
-};
-const sell = {
-    ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate,
-    stroke: "#E3342F",
-    textFill: "#E3342F",
-    text: "Sell",
-    edge: {
-        ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate.edge,
-        stroke: "#E3342F",
-    },
-};
-const buy = {
-    ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate,
-    stroke: "#1F9D55",
-    textFill: "#1F9D55",
-    text: "Buy",
-    edge: {
-        ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate.edge,
-        stroke: "#1F9D55",
-    },
-};
-
 class Annotated extends React.Component<ChartProps> {
     public constructor(props: ChartProps) {
         super(props);
 
-        // this.terminate = this.terminate.bind(this);
         this.state = {
-            yCoordinateList: [],
+            longPositionArr: [],
         };
+        // this.terminate = this.terminate.bind(this);
     }
     private readonly margin = { left: 0, right: 48, top: 0, bottom: 24 };
     private readonly xScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
         (d: IOHLCData) => d.date,
     );
-
-    onStart = () => {
-        const yValue = 58;
-        const percent = 2;
-        const targetValue = yValue + (yValue * 2) / 100;
-        const stopLossValue = yValue - (yValue * 2) / 100;
-
-        this.setState({
-            yCoordinateList: [
-                {
-                    ...alert,
-                    yValue: this.round2Decimal(targetValue),
-                    id: 10,
-                    draggable: true,
-                    text: `Target: ${this.round2Decimal(targetValue - yValue)} (${percent}%)`,
-                },
-                {
-                    ...buy,
-                    yValue: this.round2Decimal(yValue),
-                    id: 11,
-                    draggable: true,
-                    text: `Risk/Reward : 1`,
-                },
-                {
-                    ...sell,
-                    yValue: this.round2Decimal(stopLossValue),
-                    id: 12,
-                    draggable: true,
-                    text: `Stop: ${this.round2Decimal(yValue - stopLossValue)} (${percent}%)`,
-                },
-            ],
-        });
-    };
-
-    round2Decimal = (value: any): string => {
-        return (Math.round(value * 100) / 100).toFixed(2);
-    };
-
-    componentDidMount() {
-        this.onStart();
-    }
 
     saveInteractiveNode = (type: string, chartId: number) => {
         return (node: any) => {
@@ -120,76 +55,10 @@ class Annotated extends React.Component<ChartProps> {
         };
     };
 
-    onDelete = (e: any, yCoordinate: number, moreProps: any): void => {
-        e.preventDefault();
-        e.stopPropagation();
+    onDelete = (id: number) => {
         this.setState({
-            yCoordinateList: [],
+            longPositionArr: this.state.longPositionArr.filter((v) => v.id !== id),
         });
-
-        // setYClickedValue("");
-        // setOriginalAlertList([])
-    };
-
-    getCoordinates = (coordinates: any): any => {
-        const targetVal = coordinates[0].yValue - coordinates[1].yValue;
-        const stopLossVal = coordinates[1].yValue - coordinates[2].yValue;
-        coordinates[0].text = `Target: ${this.round2Decimal(targetVal)} (${this.round2Decimal(
-            (targetVal * 100) / coordinates[1].yValue,
-        )}%)`;
-        coordinates[1].text = `Risk/Reward : ${this.round2Decimal(targetVal / stopLossVal)}`;
-        coordinates[2].text = `Stop: ${this.round2Decimal(stopLossVal)} (${this.round2Decimal(
-            (stopLossVal * 100) / coordinates[1].yValue,
-        )}%)`;
-        return coordinates;
-    };
-
-    onDragComplete = (e: any, yCoordinateList1: any[], moreProps: any, draggedAlert: any): void => {
-        const { id: chartId } = moreProps.chartConfig;
-        const alertDragged = draggedAlert != null;
-        const positionId = draggedAlert.id;
-
-        const { yValue } = draggedAlert;
-
-        const yCoordinateList = this.state.yCoordinateList;
-
-        if (positionId === 10) {
-            if (!(yValue < yCoordinateList[1].yValue)) {
-                // setEnableInteractiveObject(false)
-                // setOriginalAlertList(yCoordinateList)
-
-                this.setState({
-                    yCoordinateList: this.getCoordinates(yCoordinateList1),
-                });
-            }
-        } else if (positionId === 11) {
-            if (!(yValue > yCoordinateList[0].yValue || yValue < yCoordinateList[2].yValue)) {
-                // setEnableInteractiveObject(false)
-                // setOriginalAlertList(yCoordinateList)
-                this.setState({
-                    yCoordinateList: this.getCoordinates(yCoordinateList1),
-                });
-            }
-        } else if (positionId === 12) {
-            if (!(yValue > yCoordinateList[1].yValue)) {
-                // setEnableInteractiveObject(false)
-                // setOriginalAlertList(yCoordinateList)
-                this.setState({
-                    yCoordinateList: this.getCoordinates(yCoordinateList1),
-                });
-            }
-        }
-
-        /*
-    setEnableInteractiveObject(false)
-    setOriginalAlertList(yCoordinateList)
-    setYCoordinateList(yCoordinateList1)
-    setAlertToEdit({
-      alert: draggedAlert,
-      chartId,
-    })
-    setShowModal(alertDragged)
-    */
     };
 
     public render() {
@@ -229,14 +98,43 @@ class Annotated extends React.Component<ChartProps> {
                     <YAxis showGridLines />
                     <CandlestickSeries />
 
-                    <InteractiveYCoordinate
-                        ref={this.saveInteractiveNode("InteractiveYCoordinate", 1)}
-                        enabled={true}
-                        onDragComplete={this.onDragComplete}
-                        onDelete={this.onDelete}
-                        yCoordinateList={this.state.yCoordinateList || []}
-                        onChoosePosition={() => {}}
+                    <ClickCallback
+                        onClick={(e, moreProps) => {
+                            const { mouseXY, chartConfig, xScale } = moreProps;
+                            const [mouseX, mouseY] = mouseXY; // Extract the Y-coordinate of the mouse
+                            const yValue = chartConfig.yScale.invert(mouseY); // Convert pixel value to data value
+
+                            const percent = 2;
+                            const targetValue = yValue + (yValue * 2) / 100;
+                            const stopLossValue = yValue - (yValue * 2) / 100;
+
+                            this.setState({
+                                longPositionArr: [
+                                    ...this.state.longPositionArr,
+                                    {
+                                        currentVal: yValue,
+                                        targetVal: targetValue,
+                                        stopLossVal: stopLossValue,
+                                        xValue: xScale.invert(mouseX),
+                                        percent,
+                                        id: Math.random().toString(16).slice(2),
+                                    },
+                                ],
+                            });
+                        }}
                     />
+
+                    {this.state.longPositionArr.map((v) => {
+                        return (
+                            <LongPosition
+                                saveInteractiveNode={this.saveInteractiveNode}
+                                currentObj={v}
+                                key={v.id}
+                                onDeleteMain={this.onDelete}
+                                isPriceObj={this.props.isPriceObj}
+                            />
+                        );
+                    })}
                 </Chart>
             </ChartCanvas>
         );

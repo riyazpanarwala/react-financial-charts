@@ -6,4 +6,6 @@ export default {
     title: "Features/interactiveY",
 };
 
-export const InteractiveYCoordinates = () => <InteractiveY />;
+export const RiskReward = () => <InteractiveY />;
+
+export const RiskReward2 = () => <InteractiveY isPriceObj />;

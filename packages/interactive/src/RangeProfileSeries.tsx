@@ -231,8 +231,8 @@ export class RangeProfileSeries extends React.Component<VolumeProfileSeriesProps
 
             const sessionBg = {
                 x: begin,
-                y: last(rects).y - 300,
-                height: head(rects).height === 0 ? "" : 800,
+                y: last(rects).y - head(rects).y,
+                height: head(rects).height === 0 ? "" : Math.abs(head(rects).y) + moreProps.height,
                 // height: head(rects).y - last(rects).y + head(rects).height,
                 width: sessionWidth,
             };

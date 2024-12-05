@@ -211,8 +211,6 @@ class Annotated extends React.Component<ChartProps> {
         const min = xAccessor(data[Math.max(0, data.length - 100)]);
         const xExtents = [min, max];
 
-        console.log(this.state);
-
         return (
             <ChartCanvas
                 height={height}

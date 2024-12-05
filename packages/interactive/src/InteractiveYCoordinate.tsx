@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { format } from "d3-format";
 import * as React from "react";
 import { ChartContext, isDefined, strokeDashTypes } from "@react-financial-charts/core";
@@ -49,6 +51,7 @@ interface InteractiveYCoordinateProps {
     readonly hoverText: object;
     readonly yCoordinateList: any[];
     readonly enabled: boolean;
+    readonly priceObj: object;
 }
 
 interface InteractiveYCoordinateState {
@@ -103,6 +106,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
             text: "Click and drag the edge circles",
         },
         yCoordinateList: [],
+        priceObj: {},
     };
 
     public static contextType = ChartContext;
@@ -124,7 +128,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
     }
 
     public render() {
-        const { yCoordinateList } = this.props;
+        const { yCoordinateList, priceObj } = this.props;
         const { override } = this.state;
         return (
             <g>
@@ -142,6 +146,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                             onDrag={this.handleDrag}
                             onDragComplete={this.handleDragComplete}
                             edgeInteractiveCursor="react-financial-charts-move-cursor"
+                            priceObj={priceObj}
                         />
                     );
                 })}

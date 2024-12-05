@@ -1,7 +1,12 @@
 import * as React from "react";
 import { strokeDashTypes } from "@react-financial-charts/core";
 import { isHover, saveNodeType } from "../utils";
-import { ClickableShape, InteractiveYCoordinate } from "../components";
+import {
+    ClickableShape,
+    InteractiveYCoordinate,
+    ClickableShapeCustom,
+    InteractiveYCoordinateCustom,
+} from "../components";
 
 export interface EachInteractiveYCoordinateProps {
     readonly index?: number;
@@ -28,6 +33,8 @@ export interface EachInteractiveYCoordinateProps {
     readonly onDrag?: (e: React.MouseEvent, index: number | undefined, moreProps: any) => void;
     readonly onDragComplete?: (e: React.MouseEvent, moreProps: any) => void;
     readonly onDelete?: (e: React.MouseEvent, index: number | undefined, moreProps: any) => void;
+    readonly priceObj: any;
+    readonly id: any;
 }
 
 interface EachInteractiveYCoordinateState {
@@ -80,6 +87,8 @@ export class EachInteractiveYCoordinate extends React.Component<
             edge,
             textBox,
             draggable,
+            priceObj,
+            id,
         } = this.props;
 
         const { hover, closeIconHover } = this.state;
@@ -98,42 +107,91 @@ export class EachInteractiveYCoordinate extends React.Component<
             : {};
         return (
             <g>
-                <InteractiveYCoordinate
-                    ref={this.saveNodeType("priceCoordinate")}
-                    selected={selected && !closeIconHover}
-                    hovering={hover || closeIconHover}
-                    interactiveCursorClass="react-financial-charts-move-cursor"
-                    {...hoverHandler}
-                    {...dragProps}
-                    yValue={yValue}
-                    bgFillStyle={bgFill}
-                    textFill={textFill}
-                    fontFamily={fontFamily}
-                    fontStyle={fontStyle}
-                    fontWeight={fontWeight}
-                    fontSize={fontSize}
-                    strokeStyle={stroke}
-                    strokeDasharray={strokeDasharray}
-                    strokeWidth={strokeWidth}
-                    text={text}
-                    textBox={textBox}
-                    edge={edge}
-                />
-                <ClickableShape
-                    show
-                    hovering={closeIconHover}
-                    text={text}
-                    yValue={yValue}
-                    fontFamily={fontFamily}
-                    fontStyle={fontStyle}
-                    fontWeight={fontWeight}
-                    fontSize={fontSize}
-                    textBox={textBox}
-                    strokeStyle={stroke}
-                    onHover={this.handleCloseIconHover}
-                    onUnHover={this.handleCloseIconHover}
-                    onClick={this.handleDelete}
-                />
+                {priceObj ? (
+                    <>
+                        <InteractiveYCoordinateCustom
+                            ref={this.saveNodeType("priceCoordinate")}
+                            selected={selected && !closeIconHover}
+                            hovering={hover || closeIconHover}
+                            interactiveCursorClass="react-financial-charts-move-cursor"
+                            {...hoverHandler}
+                            {...dragProps}
+                            yValue={yValue}
+                            bgFillStyle={bgFill}
+                            textFill={textFill}
+                            fontFamily={fontFamily}
+                            fontStyle={fontStyle}
+                            fontWeight={fontWeight}
+                            fontSize={fontSize}
+                            strokeStyle={stroke}
+                            strokeDasharray={strokeDasharray}
+                            strokeWidth={strokeWidth}
+                            text={text}
+                            textBox={textBox}
+                            edge={edge}
+                            priceObj={priceObj}
+                            uniqueId={id}
+                        />
+                        {id === 10 && (
+                            <ClickableShapeCustom
+                                show
+                                hovering={closeIconHover}
+                                text={text}
+                                yValue={yValue}
+                                fontFamily={fontFamily}
+                                fontStyle={fontStyle}
+                                fontWeight={fontWeight}
+                                fontSize={fontSize}
+                                textBox={textBox}
+                                strokeStyle={stroke}
+                                onHover={this.handleCloseIconHover}
+                                onUnHover={this.handleCloseIconHover}
+                                onClick={this.handleDelete}
+                                xValue={priceObj.xValue}
+                                width={200}
+                            />
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <InteractiveYCoordinate
+                            ref={this.saveNodeType("priceCoordinate")}
+                            selected={selected && !closeIconHover}
+                            hovering={hover || closeIconHover}
+                            interactiveCursorClass="react-financial-charts-move-cursor"
+                            {...hoverHandler}
+                            {...dragProps}
+                            yValue={yValue}
+                            bgFillStyle={bgFill}
+                            textFill={textFill}
+                            fontFamily={fontFamily}
+                            fontStyle={fontStyle}
+                            fontWeight={fontWeight}
+                            fontSize={fontSize}
+                            strokeStyle={stroke}
+                            strokeDasharray={strokeDasharray}
+                            strokeWidth={strokeWidth}
+                            text={text}
+                            textBox={textBox}
+                            edge={edge}
+                        />
+                        <ClickableShape
+                            show
+                            hovering={closeIconHover}
+                            text={text}
+                            yValue={yValue}
+                            fontFamily={fontFamily}
+                            fontStyle={fontStyle}
+                            fontWeight={fontWeight}
+                            fontSize={fontSize}
+                            textBox={textBox}
+                            strokeStyle={stroke}
+                            onHover={this.handleCloseIconHover}
+                            onUnHover={this.handleCloseIconHover}
+                            onClick={this.handleDelete}
+                        />
+                    </>
+                )}
             </g>
         );
     }

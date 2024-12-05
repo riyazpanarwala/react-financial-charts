@@ -40,9 +40,9 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
         strokeDashArray: "ShortDash",
         fillOpacity: 0.3,
         strokeOpacity: 1,
-        textFillStyle: "#000",
-        fillStyleGain: "#00ff00",
-        fillStyleLoss: "#ff0000",
+        textFillStyle: "#fff",
+        fillStyleGain: "#74e244", // "#00ff00",
+        fillStyleLoss: "#e87975", //"#ff0000",
     };
 
     public constructor(props: MeasurementProps) {
@@ -133,7 +133,7 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
             const { end, start } = this.state;
             const barCount = end.item.idx.index - start.item.idx.index;
             ctx.fillStyle = textFillStyle;
-            ctx.font = "14px Georgia";
+            ctx.font = "16px sans serif";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(`${this.state.difference} (${this.state.percentage}%)`, x + width / 2, y + height / 2);
@@ -188,7 +188,7 @@ export class Measurement extends React.Component<MeasurementProps, MeasurementSt
         const width = Math.abs(x2 - x1);
 
         const difference = yScale.invert(mouseY) - yScale.invert(y1);
-        const percentage = (difference * 100) / yScale.invert(mouseY);
+        const percentage = (difference * 100) / yScale.invert(y1);
 
         this.setState({
             selected: true,

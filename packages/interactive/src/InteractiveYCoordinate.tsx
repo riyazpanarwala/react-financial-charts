@@ -52,6 +52,9 @@ interface InteractiveYCoordinateProps {
     readonly yCoordinateList: any[];
     readonly enabled: boolean;
     readonly priceObj: object;
+    readonly fillStyleGain: string;
+    readonly fillStyleLoss: string;
+    readonly boxWidth: number;
 }
 
 interface InteractiveYCoordinateState {
@@ -128,7 +131,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
     }
 
     public render() {
-        const { yCoordinateList, priceObj } = this.props;
+        const { yCoordinateList, priceObj, fillStyleGain, fillStyleLoss, boxWidth } = this.props;
         const { override } = this.state;
         return (
             <g>
@@ -147,6 +150,9 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                             onDragComplete={this.handleDragComplete}
                             edgeInteractiveCursor="react-financial-charts-move-cursor"
                             priceObj={priceObj}
+                            fillStyleGain={fillStyleGain}
+                            fillStyleLoss={fillStyleLoss}
+                            boxWidth={boxWidth}
                         />
                     );
                 })}

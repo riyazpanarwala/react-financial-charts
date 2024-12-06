@@ -35,6 +35,9 @@ export interface EachInteractiveYCoordinateProps {
     readonly onDelete?: (e: React.MouseEvent, index: number | undefined, moreProps: any) => void;
     readonly priceObj: any;
     readonly id: any;
+    readonly fillStyleGain: string;
+    readonly fillStyleLoss: string;
+    readonly boxWidth: number;
 }
 
 interface EachInteractiveYCoordinateState {
@@ -50,6 +53,7 @@ export class EachInteractiveYCoordinate extends React.Component<
         strokeWidth: 1,
         selected: false,
         draggable: false,
+        boxWidth: 200,
     };
 
     private dragStartPosition: any;
@@ -89,6 +93,9 @@ export class EachInteractiveYCoordinate extends React.Component<
             draggable,
             priceObj,
             id,
+            boxWidth,
+            fillStyleGain,
+            fillStyleLoss,
         } = this.props;
 
         const { hover, closeIconHover } = this.state;
@@ -131,6 +138,9 @@ export class EachInteractiveYCoordinate extends React.Component<
                             edge={edge}
                             priceObj={priceObj}
                             uniqueId={id}
+                            fillStyleGain={fillStyleGain}
+                            fillStyleLoss={fillStyleLoss}
+                            boxWidth={boxWidth}
                         />
                         {id === 10 && (
                             <ClickableShapeCustom
@@ -148,7 +158,7 @@ export class EachInteractiveYCoordinate extends React.Component<
                                 onUnHover={this.handleCloseIconHover}
                                 onClick={this.handleDelete}
                                 xValue={priceObj.xValue}
-                                width={200}
+                                width={boxWidth}
                             />
                         )}
                     </>

@@ -5,7 +5,7 @@ import { drawOnCanvas } from "@react-financial-charts/coordinates/lib/EdgeCoordi
 import { getYCoordinate } from "@react-financial-charts/coordinates/lib/MouseCoordinateY";
 import { getMouseCanvas, GenericChartComponent, strokeDashTypes } from "@react-financial-charts/core";
 
-export interface InteractiveYCoordinateProps {
+export interface InteractiveYCoordinateCustomProps {
     readonly bgFillStyle: string;
     readonly strokeStyle: string;
     readonly strokeWidth: number;
@@ -36,15 +36,20 @@ export interface InteractiveYCoordinateProps {
     readonly hovering: boolean;
     readonly uniqueId: number;
     readonly priceObj: any;
+    readonly fillStyleGain: string;
+    readonly fillStyleLoss: string;
+    readonly boxWidth: number;
 }
 
-export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCoordinateProps> {
+export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCoordinateCustomProps> {
     public static defaultProps = {
         fontWeight: "normal", // standard dev
         strokeWidth: 1,
         tolerance: 4,
         selected: false,
         hovering: false,
+        fillStyleGain: "rgba(116, 226, 68, 0.3)",
+        fillStyleLoss: "rgba(232, 121, 117, 0.3)",
     };
 
     private width = 0;
@@ -89,6 +94,9 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
             selected,
             hovering,
             uniqueId,
+            fillStyleGain,
+            fillStyleLoss,
+            boxWidth,
         } = this.props;
 
         const values = this.helper(moreProps);
@@ -107,7 +115,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
             ctx.lineWidth = strokeWidth;
         }
         ctx.textBaseline = "middle";
-        ctx.textAlign = "start";
+        ctx.textAlign = "center";
         ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
 
         this.width =
@@ -131,9 +139,9 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
 
         ctx.beginPath();
         ctx.moveTo(x1, y);
-        ctx.lineTo(x1 + 200, y);
+        ctx.lineTo(x1 + boxWidth, y);
         ctx.strokeStyle = strokeStyle;
-        ctx.lineWidth = 1;
+        // ctx.lineWidth = 1;
         ctx.stroke();
 
         // ctx.fillStyle = bgFillStyle;
@@ -146,11 +154,11 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
         ctx.fillText(text, x1 + this.width / 2, y - 10);
 
         // Highlight between stop-loss and target
-        ctx.fillStyle = "rgba(0, 255, 0, 0.1)";
-        ctx.fillRect(x1, newTargetVal, 200, newCurrentVal - newTargetVal);
+        ctx.fillStyle = fillStyleGain;
+        ctx.fillRect(x1, newTargetVal, boxWidth, newCurrentVal - newTargetVal);
 
-        ctx.fillStyle = "rgba(255, 0, 0, 0.1)";
-        ctx.fillRect(x1, newCurrentVal, 200, newstopLossVal - newCurrentVal);
+        ctx.fillStyle = fillStyleLoss;
+        ctx.fillRect(x1, newCurrentVal, boxWidth, newstopLossVal - newCurrentVal);
 
         const newEdge = {
             ...edge,

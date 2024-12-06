@@ -2,7 +2,7 @@ import * as React from "react";
 import { getMouseCanvas, GenericChartComponent } from "@react-financial-charts/core";
 import { isHovering2 } from "./InteractiveStraightLine";
 
-export interface ClickableShapeProps {
+export interface ClickableShapeCustomProps {
     readonly fontWeight: string;
     readonly fontFamily: string;
     readonly fontStyle: string;
@@ -26,7 +26,7 @@ export interface ClickableShapeProps {
     readonly xValue: number;
 }
 
-export class ClickableShapeCustom extends React.Component<ClickableShapeProps> {
+export class ClickableShapeCustom extends React.Component<ClickableShapeCustomProps> {
     public static defaultProps = {
         show: false,
         strokeWidth: 1,
@@ -93,7 +93,7 @@ export class ClickableShapeCustom extends React.Component<ClickableShapeProps> {
         return false;
     };
 
-    private readonly helper = (props: ClickableShapeProps, moreProps: any, ctx: CanvasRenderingContext2D) => {
+    private readonly helper = (props: ClickableShapeCustomProps, moreProps: any, ctx: CanvasRenderingContext2D) => {
         const { yValue, text, textBox, xValue } = props;
         const { fontFamily, fontStyle, fontWeight, fontSize } = props;
         ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;

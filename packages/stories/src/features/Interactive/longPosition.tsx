@@ -164,6 +164,9 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
             yCoordinateList={yCoordinateList}
             onChoosePosition={() => {}}
             priceObj={isPriceObj ? priceObj : ""}
+            boxWidth={200}
+            fillStyleGain="rgba(116, 226, 68, 0.3)"
+            fillStyleLoss="rgba(232, 121, 117, 0.3)"
         />
     );
 };

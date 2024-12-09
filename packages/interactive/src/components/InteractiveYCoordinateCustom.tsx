@@ -38,7 +38,6 @@ export interface InteractiveYCoordinateCustomProps {
     readonly priceObj: any;
     readonly fillStyleGain: string;
     readonly fillStyleLoss: string;
-    readonly boxWidth: number;
 }
 
 export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCoordinateCustomProps> {
@@ -96,7 +95,6 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
             uniqueId,
             fillStyleGain,
             fillStyleLoss,
-            boxWidth,
         } = this.props;
 
         const values = this.helper(moreProps);
@@ -104,7 +102,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
             return;
         }
 
-        const { x1, y, currentVal, stopLossVal, targetVal } = values;
+        const { x1, x2, y, currentVal, stopLossVal, targetVal } = values;
 
         ctx.strokeStyle = strokeStyle;
 
@@ -139,7 +137,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
 
         ctx.beginPath();
         ctx.moveTo(x1, y);
-        ctx.lineTo(x1 + boxWidth, y);
+        ctx.lineTo(x1, y);
         ctx.strokeStyle = strokeStyle;
         // ctx.lineWidth = 1;
         ctx.stroke();
@@ -155,10 +153,10 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
 
         // Highlight between stop-loss and target
         ctx.fillStyle = fillStyleGain;
-        ctx.fillRect(x1, newTargetVal, boxWidth, newCurrentVal - newTargetVal);
+        ctx.fillRect(x1, newTargetVal, x2 - x1, newCurrentVal - newTargetVal);
 
         ctx.fillStyle = fillStyleLoss;
-        ctx.fillRect(x1, newCurrentVal, boxWidth, newstopLossVal - newCurrentVal);
+        ctx.fillRect(x1, newCurrentVal, x2 - x1, newstopLossVal - newCurrentVal);
 
         const newEdge = {
             ...edge,
@@ -206,7 +204,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
         const { yValue, textBox, priceObj } = this.props;
 
         const {
-            chartConfig: { width, yScale, height },
+            chartConfig: { yScale, height },
             xScale,
         } = moreProps;
 
@@ -219,10 +217,10 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
                 height: textBox.height,
             };
 
-            const { currentVal, stopLossVal, targetVal, xValue } = priceObj;
+            const { currentVal, stopLossVal, targetVal, x1Value, x2Value } = priceObj;
             return {
-                x1: xScale(xValue),
-                x2: width,
+                x1: xScale(x1Value),
+                x2: xScale(x2Value),
                 y,
                 rect,
                 currentVal: Math.round(yScale(currentVal)),

@@ -22,8 +22,7 @@ export interface ClickableShapeCustomProps {
     readonly onUnHover?: (e: React.MouseEvent, moreProps: any) => void;
     readonly onClick?: (e: React.MouseEvent, moreProps: any) => void;
     readonly yValue: number;
-    readonly width: number;
-    readonly xValue: number;
+    readonly x2Value: number;
 }
 
 export class ClickableShapeCustom extends React.Component<ClickableShapeCustomProps> {
@@ -56,9 +55,9 @@ export class ClickableShapeCustom extends React.Component<ClickableShapeCustomPr
     }
 
     private readonly drawOnCanvas = (ctx: CanvasRenderingContext2D, moreProps: any) => {
-        const { strokeStyle, strokeWidth, hovering, textBox, width } = this.props;
+        const { strokeStyle, strokeWidth, hovering, textBox } = this.props;
 
-        const { x, y, xVal } = this.helper(this.props, moreProps, ctx);
+        const { x, y, x2Val } = this.helper(this.props, moreProps, ctx);
 
         this.closeIcon = { x, y };
         ctx.beginPath();
@@ -67,24 +66,24 @@ export class ClickableShapeCustom extends React.Component<ClickableShapeCustomPr
         ctx.strokeStyle = strokeStyle;
         const halfWidth = textBox.closeIcon.width / 2;
 
-        ctx.moveTo(xVal - halfWidth + width, y - halfWidth);
-        ctx.lineTo(xVal + halfWidth + width, y + halfWidth);
-        ctx.moveTo(xVal - halfWidth + width, y + halfWidth);
-        ctx.lineTo(xVal + halfWidth + width, y - halfWidth);
+        ctx.moveTo(x2Val - halfWidth, y - halfWidth);
+        ctx.lineTo(x2Val + halfWidth, y + halfWidth);
+        ctx.moveTo(x2Val - halfWidth, y + halfWidth);
+        ctx.lineTo(x2Val + halfWidth, y - halfWidth);
         ctx.stroke();
     };
 
     private readonly isHover = (moreProps: any) => {
         const { mouseXY, xScale } = moreProps;
         if (this.closeIcon) {
-            const { textBox, width, xValue } = this.props;
+            const { textBox, x2Value } = this.props;
             const { y } = this.closeIcon;
             const halfWidth = textBox.closeIcon.width / 2;
-            const newX = xScale(xValue);
-            const start1 = [newX - halfWidth + width, y - halfWidth];
-            const end1 = [newX + halfWidth + width, y + halfWidth];
-            const start2 = [newX - halfWidth + width, y + halfWidth];
-            const end2 = [newX + halfWidth + width, y - halfWidth];
+            const newX = xScale(x2Value);
+            const start1 = [newX - halfWidth, y - halfWidth];
+            const end1 = [newX + halfWidth, y + halfWidth];
+            const start2 = [newX - halfWidth, y + halfWidth];
+            const end2 = [newX + halfWidth, y - halfWidth];
 
             if (isHovering2(start1, end1, mouseXY, 3) || isHovering2(start2, end2, mouseXY, 3)) {
                 return true;
@@ -94,7 +93,7 @@ export class ClickableShapeCustom extends React.Component<ClickableShapeCustomPr
     };
 
     private readonly helper = (props: ClickableShapeCustomProps, moreProps: any, ctx: CanvasRenderingContext2D) => {
-        const { yValue, text, textBox, xValue } = props;
+        const { yValue, text, textBox, x2Value } = props;
         const { fontFamily, fontStyle, fontWeight, fontSize } = props;
         ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
 
@@ -113,6 +112,6 @@ export class ClickableShapeCustom extends React.Component<ClickableShapeCustomPr
 
         const y = yScale(yValue);
 
-        return { x, y, xVal: xScale(xValue) };
+        return { x, y, x2Val: xScale(x2Value) };
     };
 }

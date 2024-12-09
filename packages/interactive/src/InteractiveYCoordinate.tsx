@@ -55,6 +55,8 @@ interface InteractiveYCoordinateProps {
     readonly fillStyleGain: string;
     readonly fillStyleLoss: string;
     readonly onDragCompleteHorizontal: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
+    readonly onDragCompleteWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
+    readonly onComplete: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
 }
 
 interface InteractiveYCoordinateState {
@@ -142,6 +144,13 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
             priceObj.x2Value = xValueObj.x2Value;
         }
 
+        /*
+        if (current) {
+            priceObj.x1Value = current.x1Value;
+            priceObj.x2Value = current.x2Value;
+        }
+        */
+
         return (
             <g>
                 {yCoordinateList.map((each, idx) => {
@@ -163,12 +172,157 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                             fillStyleLoss={fillStyleLoss}
                             onDragCompleteHorizontal={this.handleDragCompleteHorizontal}
                             onDragHorizontal={this.handleDragHorizontal}
+                            onDragCompleteWhole={this.onDragCompleteWhole}
+                            onDragWhole={this.onDragWhole}
                         />
                     );
                 })}
+
+                {/*
+                <MouseLocationIndicator
+                    enabled={true}
+                    snap={false}
+                    r={1}
+                    stroke={"#000000"}
+                    opacity={1}
+                    strokeWidth={0}
+                    onMouseDown={this.handleStart}
+                    onClick={this.handleEnd}
+                    onMouseMove={this.handleDrawRetracement}
+                />
+                */}
             </g>
         );
     }
+
+    getCoordinates = (xyValObj: any) => {
+        const { priceObj } = this.props;
+        const { x1, y1, x2, y2 } = xyValObj;
+        const dy = y2 - y1;
+        const dx = x2 - x1;
+        const targetVal = priceObj.targetVal + dy;
+        const currentVal = priceObj.currentVal + dy;
+        const stopLossVal = priceObj.stopLossVal + dy;
+        const x1Val = priceObj.x1Value + dx;
+        const x2Val = priceObj.x2Value + dx;
+
+        return {
+            x1Val,
+            x2Val,
+            targetVal,
+            currentVal,
+            stopLossVal,
+        };
+    };
+
+    private readonly onDragWhole = (e: React.MouseEvent, xyValObj: any, moreProps: any) => {
+        const { x1Val, x2Val, targetVal, currentVal, stopLossVal } = this.getCoordinates(xyValObj);
+
+        this.setState({
+            current: {
+                x1Value: x1Val,
+                x2Value: x2Val,
+                currentVal: currentVal,
+                targetVal: targetVal,
+                stopLossVal: stopLossVal,
+            },
+        });
+    };
+
+    private readonly onDragCompleteWhole = (e: React.MouseEvent, xyValObj: any, moreProps: any) => {
+        this.setState(
+            {
+                current: null,
+            },
+            () => {
+                const { x1Val, x2Val, targetVal, currentVal, stopLossVal } = this.getCoordinates(xyValObj);
+
+                const { onComplete } = this.props;
+                if (onComplete !== undefined) {
+                    onComplete(
+                        e,
+                        {
+                            x1Value: x1Val,
+                            x2Value: x2Val,
+                            currentVal: currentVal,
+                            targetVal: targetVal,
+                            stopLossVal: stopLossVal,
+                        },
+                        moreProps,
+                    );
+                }
+            },
+        );
+    };
+
+    /*
+
+    private readonly handleDrawRetracement = (_: React.MouseEvent, xyValue: any) => {
+        const { current } = this.state;
+
+        if (isDefined(current) && isDefined(current.x1)) {
+            this.mouseMoved = true;
+            this.setState({
+                current: {
+                    ...current,
+                    x2: xyValue[0],
+                    y2: xyValue[1],
+                },
+            });
+        }
+    };
+
+
+    private readonly handleStart = (e: React.MouseEvent, xyValue: any, moreProps: any) => {
+        const { current } = this.state;
+        if (isNotDefined(current) || isNotDefined(current.x1)) {
+            this.mouseMoved = false;
+            this.setState(
+                {
+                    current: {
+                        x1: xyValue[0],
+                        y1: xyValue[1],
+                        x2: null,
+                        y2: null,
+                    },
+                },
+                () => {
+                    const { onStart } = this.props;
+                    if (onStart !== undefined) {
+                        onStart(moreProps);
+                    }
+                },
+            );
+        }
+    };
+
+    private readonly handleEnd = (e: React.MouseEvent, xyValue: any, moreProps: any) => {
+        const { priceObj } = this.props;
+        const { current } = this.state;
+
+        if (this.mouseMoved && isDefined(current) && isDefined(current.x1)) {
+            const newRetracements = {
+                ...current,
+                x2: xyValue[0],
+                y2: xyValue[1],
+                selected: true,
+            };
+
+            this.setState(
+                {
+                    current: null,
+                },
+                () => {
+                    const { onComplete } = this.props;
+                    if (onComplete !== undefined) {
+                        onComplete(e, newRetracements, moreProps);
+                    }
+                },
+            );
+        }
+    };
+
+    */
 
     private readonly handleDelete = (e: React.MouseEvent, index: number | undefined, moreProps: any) => {
         const { onDelete, yCoordinateList } = this.props;

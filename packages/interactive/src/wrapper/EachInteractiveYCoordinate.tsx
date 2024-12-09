@@ -41,12 +41,15 @@ export interface EachInteractiveYCoordinateProps {
     readonly fillStyleLoss: string;
     readonly onDragHorizontal: (e: React.MouseEvent, moreProps: any) => void;
     readonly onDragCompleteHorizontal: (e: React.MouseEvent, moreProps: any) => void;
+    readonly onDragCompleteWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
+    readonly onDragWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
 }
 
 interface EachInteractiveYCoordinateState {
     closeIconHover: boolean;
     hover: boolean;
     anchor?: string;
+    current?: any;
 }
 
 export class EachInteractiveYCoordinate extends React.Component<
@@ -195,6 +198,21 @@ export class EachInteractiveYCoordinate extends React.Component<
                                     onDrag={this.handleEdge2Drag}
                                     onDragComplete={this.handleDragComplete}
                                 />
+                                <ClickableCircle
+                                    ref={this.saveNodeType("edge3")}
+                                    show
+                                    cx={(priceObj.x2Value + priceObj.x1Value) / 2}
+                                    cy={yValue}
+                                    r={5}
+                                    fillStyle={"#fff"}
+                                    strokeStyle={"#000"}
+                                    // strokeStyle={stroke}
+                                    strokeWidth={2}
+                                    // interactiveCursorClass={edgeInteractiveCursor}
+                                    onDragStart={this.handleEdge3DragStart}
+                                    onDrag={this.handleEdge3Drag}
+                                    onDragComplete={this.handleDrag3Complete}
+                                />
                             </>
                         )}
                     </>
@@ -244,14 +262,61 @@ export class EachInteractiveYCoordinate extends React.Component<
 
     private readonly handleEdge1DragStart = () => {
         this.setState({
-            anchor: "edge2",
+            anchor: "edge1",
         });
     };
 
     private readonly handleEdge2DragStart = () => {
         this.setState({
-            anchor: "edge1",
+            anchor: "edge2",
         });
+    };
+
+    private readonly handleEdge3DragStart = (e: React.MouseEvent, moreProps: any) => {
+        this.setState({
+            anchor: "edge3",
+        });
+
+        const [x1Value, y1Value] = getNewXY(moreProps);
+        this.setState({
+            current: {
+                x1: x1Value,
+                y1: y1Value,
+            },
+        });
+    };
+
+    private readonly handleDrag3Complete = (e: React.MouseEvent, moreProps: any) => {
+        this.setState({
+            anchor: undefined,
+        });
+
+        const { onDragCompleteWhole } = this.props;
+        if (onDragCompleteWhole === undefined) {
+            return;
+        }
+
+        onDragCompleteWhole(e, this.state.current, moreProps);
+    };
+
+    private readonly handleEdge3Drag = (e: React.MouseEvent, moreProps: any) => {
+        const [x2Value, y2Value] = getNewXY(moreProps);
+
+        const newObj = {
+            ...this.state.current,
+            x2: x2Value,
+            y2: y2Value,
+        };
+
+        this.setState({
+            current: newObj,
+        });
+
+        const { onDragWhole } = this.props;
+        if (onDragWhole === undefined) {
+            return;
+        }
+        onDragWhole(e, newObj, moreProps);
     };
 
     private readonly handleDragComplete = (e: React.MouseEvent, moreProps: any) => {

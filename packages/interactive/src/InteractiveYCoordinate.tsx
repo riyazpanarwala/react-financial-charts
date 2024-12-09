@@ -51,15 +51,16 @@ interface InteractiveYCoordinateProps {
     readonly hoverText: object;
     readonly yCoordinateList: any[];
     readonly enabled: boolean;
-    readonly priceObj: object;
+    readonly priceObj: any;
     readonly fillStyleGain: string;
     readonly fillStyleLoss: string;
-    readonly boxWidth: number;
+    readonly onDragCompleteHorizontal: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
 }
 
 interface InteractiveYCoordinateState {
     current?: any;
     override?: any;
+    xValueObj?: any;
 }
 
 export class InteractiveYCoordinate extends React.Component<InteractiveYCoordinateProps, InteractiveYCoordinateState> {
@@ -127,12 +128,20 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
         this.saveNodeType = saveNodeType.bind(this);
         this.getSelectionState = isHoverForInteractiveType("yCoordinateList").bind(this);
 
-        this.state = {};
+        this.state = {
+            xValueObj: {},
+        };
     }
 
     public render() {
-        const { yCoordinateList, priceObj, fillStyleGain, fillStyleLoss, boxWidth } = this.props;
-        const { override } = this.state;
+        const { yCoordinateList, priceObj, fillStyleGain, fillStyleLoss } = this.props;
+        const { override, xValueObj } = this.state;
+
+        if (xValueObj?.x1Value && xValueObj?.x2Value) {
+            priceObj.x1Value = xValueObj.x1Value;
+            priceObj.x2Value = xValueObj.x2Value;
+        }
+
         return (
             <g>
                 {yCoordinateList.map((each, idx) => {
@@ -152,7 +161,8 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                             priceObj={priceObj}
                             fillStyleGain={fillStyleGain}
                             fillStyleLoss={fillStyleLoss}
-                            boxWidth={boxWidth}
+                            onDragCompleteHorizontal={this.handleDragCompleteHorizontal}
+                            onDragHorizontal={this.handleDragHorizontal}
                         />
                     );
                 })}
@@ -205,6 +215,27 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                 index,
                 yValue,
             },
+        });
+    };
+
+    private readonly handleDragCompleteHorizontal = (e: React.MouseEvent, moreProps: any) => {
+        const newObj = this.state.xValueObj;
+        this.setState(
+            {
+                xValueObj: {},
+            },
+            () => {
+                const { onDragCompleteHorizontal } = this.props;
+                if (onDragCompleteHorizontal !== undefined) {
+                    onDragCompleteHorizontal(e, newObj, moreProps);
+                }
+            },
+        );
+    };
+
+    private readonly handleDragHorizontal = (_: React.MouseEvent, xValueObj: any) => {
+        this.setState({
+            xValueObj,
         });
     };
 }

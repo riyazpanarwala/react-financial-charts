@@ -6,7 +6,9 @@ import {
     InteractiveYCoordinate,
     ClickableShapeCustom,
     InteractiveYCoordinateCustom,
+    ClickableCircle,
 } from "../components";
+import { getNewXY } from "./EachTrendLine";
 
 export interface EachInteractiveYCoordinateProps {
     readonly index?: number;
@@ -37,12 +39,14 @@ export interface EachInteractiveYCoordinateProps {
     readonly id: any;
     readonly fillStyleGain: string;
     readonly fillStyleLoss: string;
-    readonly boxWidth: number;
+    readonly onDragHorizontal: (e: React.MouseEvent, moreProps: any) => void;
+    readonly onDragCompleteHorizontal: (e: React.MouseEvent, moreProps: any) => void;
 }
 
 interface EachInteractiveYCoordinateState {
     closeIconHover: boolean;
     hover: boolean;
+    anchor?: string;
 }
 
 export class EachInteractiveYCoordinate extends React.Component<
@@ -53,7 +57,6 @@ export class EachInteractiveYCoordinate extends React.Component<
         strokeWidth: 1,
         selected: false,
         draggable: false,
-        boxWidth: 200,
     };
 
     private dragStartPosition: any;
@@ -93,7 +96,6 @@ export class EachInteractiveYCoordinate extends React.Component<
             draggable,
             priceObj,
             id,
-            boxWidth,
             fillStyleGain,
             fillStyleLoss,
         } = this.props;
@@ -112,6 +114,7 @@ export class EachInteractiveYCoordinate extends React.Component<
                   onDragComplete,
               }
             : {};
+
         return (
             <g>
                 {priceObj ? (
@@ -140,7 +143,6 @@ export class EachInteractiveYCoordinate extends React.Component<
                             uniqueId={id}
                             fillStyleGain={fillStyleGain}
                             fillStyleLoss={fillStyleLoss}
-                            boxWidth={boxWidth}
                         />
                         {id === 10 && (
                             <ClickableShapeCustom
@@ -157,9 +159,43 @@ export class EachInteractiveYCoordinate extends React.Component<
                                 onHover={this.handleCloseIconHover}
                                 onUnHover={this.handleCloseIconHover}
                                 onClick={this.handleDelete}
-                                xValue={priceObj.xValue}
-                                width={boxWidth}
+                                x2Value={priceObj.x2Value}
                             />
+                        )}
+
+                        {id === 11 && (
+                            <>
+                                <ClickableCircle
+                                    ref={this.saveNodeType("edge1")}
+                                    show
+                                    cx={priceObj.x1Value}
+                                    cy={yValue}
+                                    r={5}
+                                    fillStyle={"#fff"}
+                                    strokeStyle={"#000"}
+                                    // strokeStyle={stroke}
+                                    strokeWidth={2}
+                                    // interactiveCursorClass={edgeInteractiveCursor}
+                                    onDragStart={this.handleEdge1DragStart}
+                                    onDrag={this.handleEdge1Drag}
+                                    onDragComplete={this.handleDragComplete}
+                                />
+                                <ClickableCircle
+                                    ref={this.saveNodeType("edge2")}
+                                    show
+                                    cx={priceObj.x2Value}
+                                    cy={yValue}
+                                    r={5}
+                                    fillStyle={"#fff"}
+                                    strokeStyle={"#000"}
+                                    // strokeStyle={stroke}
+                                    strokeWidth={2}
+                                    // interactiveCursorClass={edgeInteractiveCursor}
+                                    onDragStart={this.handleEdge2DragStart}
+                                    onDrag={this.handleEdge2Drag}
+                                    onDragComplete={this.handleDragComplete}
+                                />
+                            </>
                         )}
                     </>
                 ) : (
@@ -205,6 +241,49 @@ export class EachInteractiveYCoordinate extends React.Component<
             </g>
         );
     }
+
+    private readonly handleEdge1DragStart = () => {
+        this.setState({
+            anchor: "edge2",
+        });
+    };
+
+    private readonly handleEdge2DragStart = () => {
+        this.setState({
+            anchor: "edge1",
+        });
+    };
+
+    private readonly handleDragComplete = (e: React.MouseEvent, moreProps: any) => {
+        this.setState({
+            anchor: undefined,
+        });
+
+        const { onDragCompleteHorizontal } = this.props;
+        if (onDragCompleteHorizontal === undefined) {
+            return;
+        }
+
+        onDragCompleteHorizontal(e, moreProps);
+    };
+
+    private readonly handleEdge2Drag = (e: React.MouseEvent, moreProps: any) => {
+        const { onDragHorizontal, priceObj } = this.props;
+        const { x1Value } = priceObj;
+
+        const [x2Value] = getNewXY(moreProps);
+
+        onDragHorizontal(e, { x1Value, x2Value });
+    };
+
+    private readonly handleEdge1Drag = (e: React.MouseEvent, moreProps: any) => {
+        const { onDragHorizontal, priceObj } = this.props;
+        const { x2Value } = priceObj;
+
+        const [x1Value] = getNewXY(moreProps);
+
+        onDragHorizontal(e, { x1Value, x2Value });
+    };
 
     private readonly handleCloseIconHover = (_: React.MouseEvent, moreProps: any) => {
         if (this.state.closeIconHover !== moreProps.hovering) {

@@ -162,6 +162,25 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
         }));
     };
 
+    const onComplete = (e: any, obj: object, moreProps: any) => {
+        const { x1Value, x2Value, currentVal, targetVal, stopLossVal } = obj;
+
+        const newCordinates = [...yCoordinateList];
+        yCoordinateList[0].yValue = targetVal;
+        yCoordinateList[1].yValue = currentVal;
+        yCoordinateList[2].yValue = stopLossVal;
+
+        setYCoordinateList(getCoordinates(yCoordinateList));
+        setPriceObj((obj1) => ({
+            ...obj1,
+            x1Value: x1Value,
+            x2Value: x2Value,
+            currentVal: currentVal,
+            targetVal: targetVal,
+            stopLossVal: stopLossVal,
+        }));
+    };
+
     return (
         <InteractiveYCoordinate
             ref={saveInteractiveNode("InteractiveYCoordinate", priceObj.id)}
@@ -174,6 +193,7 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
             priceObj={isPriceObj ? priceObj : ""}
             fillStyleGain="rgba(116, 226, 68, 0.3)"
             fillStyleLoss="rgba(232, 121, 117, 0.3)"
+            onComplete={onComplete}
         />
     );
 };

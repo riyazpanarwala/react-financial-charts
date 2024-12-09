@@ -155,16 +155,23 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
         return (Math.round(value * 100) / 100).toFixed(2);
     };
 
+    const onDragCompleteHorizontal = (e: any, obj: object, moreProps: any) => {
+        setPriceObj((obj1) => ({
+            ...obj1,
+            ...obj,
+        }));
+    };
+
     return (
         <InteractiveYCoordinate
             ref={saveInteractiveNode("InteractiveYCoordinate", priceObj.id)}
             enabled={true}
+            onDragCompleteHorizontal={onDragCompleteHorizontal}
             onDragComplete={onDragComplete}
             onDelete={onDelete}
             yCoordinateList={yCoordinateList}
             onChoosePosition={() => {}}
             priceObj={isPriceObj ? priceObj : ""}
-            boxWidth={200}
             fillStyleGain="rgba(116, 226, 68, 0.3)"
             fillStyleLoss="rgba(232, 121, 117, 0.3)"
         />

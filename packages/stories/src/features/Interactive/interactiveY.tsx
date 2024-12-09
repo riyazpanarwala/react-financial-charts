@@ -107,6 +107,7 @@ class Annotated extends React.Component<ChartProps> {
                             const percent = 2;
                             const targetValue = yValue + (yValue * 2) / 100;
                             const stopLossValue = yValue - (yValue * 2) / 100;
+                            const width = 200;
 
                             this.setState({
                                 longPositionArr: [
@@ -115,7 +116,8 @@ class Annotated extends React.Component<ChartProps> {
                                         currentVal: yValue,
                                         targetVal: targetValue,
                                         stopLossVal: stopLossValue,
-                                        xValue: xScale.invert(mouseX),
+                                        x1Value: xScale.invert(mouseX),
+                                        x2Value: xScale.invert(mouseX + width),
                                         percent,
                                         id: Math.random().toString(16).slice(2),
                                     },

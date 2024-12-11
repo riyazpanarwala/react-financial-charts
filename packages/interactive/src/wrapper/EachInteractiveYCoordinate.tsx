@@ -43,6 +43,7 @@ export interface EachInteractiveYCoordinateProps {
     readonly onDragCompleteHorizontal: (e: React.MouseEvent, moreProps: any) => void;
     readonly onDragCompleteWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
     readonly onDragWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
+    readonly isShortPosition?: boolean;
 }
 
 interface EachInteractiveYCoordinateState {
@@ -101,6 +102,7 @@ export class EachInteractiveYCoordinate extends React.Component<
             id,
             fillStyleGain,
             fillStyleLoss,
+            isShortPosition,
         } = this.props;
 
         const { hover, closeIconHover } = this.state;
@@ -146,6 +148,7 @@ export class EachInteractiveYCoordinate extends React.Component<
                             uniqueId={id}
                             fillStyleGain={fillStyleGain}
                             fillStyleLoss={fillStyleLoss}
+                            isShortPosition={isShortPosition}
                         />
                         {id === 10 && (
                             <ClickableShapeCustom

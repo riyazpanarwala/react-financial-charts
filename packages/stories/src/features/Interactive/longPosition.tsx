@@ -5,6 +5,17 @@ const alert = {
     ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate,
     text: "Target",
     textFill: "#fff",
+    strokeWidth: 3,
+    textBox: {
+        height: 24,
+        left: 20,
+        padding: { left: 10, right: 5 },
+        closeIcon: {
+            padding: { left: 0, right: 0 },
+            width: 15,
+            strokeWidth: 2,
+        },
+    },
     edge: {
         ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate.edge,
         stroke: "#fff",
@@ -16,6 +27,7 @@ const sell = {
     stroke: "#E3342F",
     textFill: "#fff",
     text: "Sell",
+    strokeWidth: 3,
     edge: {
         ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate.edge,
         stroke: "#000",
@@ -27,6 +39,7 @@ const buy = {
     stroke: "#1F9D55",
     textFill: "#fff",
     text: "Buy",
+    strokeWidth: 3,
     edge: {
         ...InteractiveYCoordinate.defaultProps.defaultPriceCoordinate.edge,
         stroke: "#000",

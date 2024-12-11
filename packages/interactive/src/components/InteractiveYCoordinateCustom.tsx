@@ -137,7 +137,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
 
         ctx.beginPath();
         ctx.moveTo(x1, y);
-        ctx.lineTo(x1, y);
+        ctx.lineTo(x2, y);
         ctx.strokeStyle = strokeStyle;
         // ctx.lineWidth = 1;
         ctx.stroke();

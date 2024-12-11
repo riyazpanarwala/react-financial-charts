@@ -47,7 +47,7 @@ const buy = {
     },
 };
 
-const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMain }: any) => {
+const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMain, isShortPosition }: any) => {
     const [yCoordinateList, setYCoordinateList] = useState<any>([]);
     const [priceObj, setPriceObj] = useState<any>({});
     // const [enableInteractiveObject, setEnableInteractiveObject] = useState(false)
@@ -63,7 +63,7 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
                 yValue: round2Decimal(targetVal),
                 id: 10,
                 draggable: true,
-                text: `Target: ${round2Decimal(targetVal - currentVal)} (${percent}%)`,
+                text: `${isShortPosition ? "Stop" : "Target"}: ${round2Decimal(targetVal - currentVal)} (${percent}%)`,
             },
             {
                 ...buy,
@@ -77,7 +77,9 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
                 yValue: round2Decimal(stopLossVal),
                 id: 12,
                 draggable: true,
-                text: `Stop: ${round2Decimal(currentVal - stopLossVal)} (${percent}%)`,
+                text: `${isShortPosition ? "Target" : "Stop"}: ${round2Decimal(
+                    currentVal - stopLossVal,
+                )} (${percent}%)`,
             },
         ]);
         setPriceObj(currentObj);
@@ -96,11 +98,11 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
     const getCoordinates = (coordinates: any): any => {
         const targetVal = coordinates[0].yValue - coordinates[1].yValue;
         const stopLossVal = coordinates[1].yValue - coordinates[2].yValue;
-        coordinates[0].text = `Target: ${round2Decimal(targetVal)} (${round2Decimal(
+        coordinates[0].text = `${isShortPosition ? "Stop" : "Target"}: ${round2Decimal(targetVal)} (${round2Decimal(
             (targetVal * 100) / coordinates[1].yValue,
         )}%)`;
         coordinates[1].text = `Risk/Reward : ${round2Decimal(targetVal / stopLossVal)}`;
-        coordinates[2].text = `Stop: ${round2Decimal(stopLossVal)} (${round2Decimal(
+        coordinates[2].text = `${isShortPosition ? "Target" : "Stop"}: ${round2Decimal(stopLossVal)} (${round2Decimal(
             (stopLossVal * 100) / coordinates[1].yValue,
         )}%)`;
         return coordinates;
@@ -207,6 +209,7 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
             fillStyleGain="rgba(116, 226, 68, 0.3)"
             fillStyleLoss="rgba(232, 121, 117, 0.3)"
             onComplete={onComplete}
+            isShortPosition={isShortPosition}
         />
     );
 };

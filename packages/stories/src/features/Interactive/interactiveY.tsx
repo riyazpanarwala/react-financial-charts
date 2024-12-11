@@ -134,6 +134,7 @@ class Annotated extends React.Component<ChartProps> {
                                 key={v.id}
                                 onDeleteMain={this.onDelete}
                                 isPriceObj={this.props.isPriceObj}
+                                isShortPosition={this.props.isShortPosition}
                             />
                         );
                     })}

@@ -9,3 +9,5 @@ export default {
 export const RiskReward = () => <InteractiveY />;
 
 export const RiskReward2 = () => <InteractiveY isPriceObj />;
+
+export const RiskReward3 = () => <InteractiveY isPriceObj isShortPosition />;

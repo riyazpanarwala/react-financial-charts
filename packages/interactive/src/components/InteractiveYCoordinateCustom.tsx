@@ -38,6 +38,7 @@ export interface InteractiveYCoordinateCustomProps {
     readonly priceObj: any;
     readonly fillStyleGain: string;
     readonly fillStyleLoss: string;
+    readonly isShortPosition?: boolean;
 }
 
 export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCoordinateCustomProps> {
@@ -95,6 +96,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
             uniqueId,
             fillStyleGain,
             fillStyleLoss,
+            isShortPosition,
         } = this.props;
 
         const values = this.helper(moreProps);
@@ -152,10 +154,18 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
         ctx.fillText(text, x1 + this.width / 2, y - 10);
 
         // Highlight between stop-loss and target
-        ctx.fillStyle = fillStyleGain;
+        if (isShortPosition) {
+            ctx.fillStyle = fillStyleLoss;
+        } else {
+            ctx.fillStyle = fillStyleGain;
+        }
         ctx.fillRect(x1, newTargetVal, x2 - x1, newCurrentVal - newTargetVal);
 
-        ctx.fillStyle = fillStyleLoss;
+        if (isShortPosition) {
+            ctx.fillStyle = fillStyleGain;
+        } else {
+            ctx.fillStyle = fillStyleLoss;
+        }
         ctx.fillRect(x1, newCurrentVal, x2 - x1, newstopLossVal - newCurrentVal);
 
         const newEdge = {

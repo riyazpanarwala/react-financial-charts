@@ -57,6 +57,7 @@ interface InteractiveYCoordinateProps {
     readonly onDragCompleteHorizontal: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
     readonly onDragCompleteWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
     readonly onComplete: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
+    readonly isShortPosition?: boolean;
 }
 
 interface InteractiveYCoordinateState {
@@ -113,6 +114,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
         },
         yCoordinateList: [],
         priceObj: {},
+        isShortPosition: false,
     };
 
     public static contextType = ChartContext;
@@ -136,7 +138,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
     }
 
     public render() {
-        const { yCoordinateList, priceObj, fillStyleGain, fillStyleLoss } = this.props;
+        const { yCoordinateList, priceObj, fillStyleGain, fillStyleLoss, isShortPosition } = this.props;
         const { override, xValueObj } = this.state;
 
         if (xValueObj?.x1Value && xValueObj?.x2Value) {
@@ -174,6 +176,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                             onDragHorizontal={this.handleDragHorizontal}
                             onDragCompleteWhole={this.onDragCompleteWhole}
                             onDragWhole={this.onDragWhole}
+                            isShortPosition={isShortPosition}
                         />
                     );
                 })}

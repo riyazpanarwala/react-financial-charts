@@ -203,11 +203,11 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
         const { x1, y1, x2, y2 } = xyValObj;
         const dy = y2 - y1;
         const dx = x2 - x1;
-        const targetVal = priceObj.targetVal + dy;
-        const currentVal = priceObj.currentVal + dy;
-        const stopLossVal = priceObj.stopLossVal + dy;
-        const x1Val = priceObj.x1Value + dx;
-        const x2Val = priceObj.x2Value + dx;
+        const targetVal = parseInt(priceObj.targetVal, 10) + dy;
+        const currentVal = parseInt(priceObj.currentVal, 10) + dy;
+        const stopLossVal = parseInt(priceObj.stopLossVal, 10) + dy;
+        const x1Val = parseInt(priceObj.x1Value, 10) + dx;
+        const x2Val = parseInt(priceObj.x2Value, 10) + dx;
 
         return {
             x1Val,

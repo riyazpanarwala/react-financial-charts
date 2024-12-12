@@ -56,12 +56,19 @@ export class GenericChartComponent extends GenericComponent {
 
     public updateMoreProps(moreProps: any) {
         super.updateMoreProps(moreProps);
-        const { chartConfigs: chartConfigList } = moreProps;
+        const { chartConfig: chartConfigList } = moreProps;
 
         if (chartConfigList && Array.isArray(chartConfigList)) {
             const { chartId } = this.context;
             const chartConfig = chartConfigList.find((each) => each.id === chartId);
             this.moreProps.chartConfig = chartConfig;
+        } else if (!chartConfigList) {
+            const { chartConfigs: chartConfigList1 } = moreProps;
+            if (chartConfigList1 && Array.isArray(chartConfigList1)) {
+                const { chartId } = this.context;
+                const chartConfig = chartConfigList1.find((each) => each.id === chartId);
+                this.moreProps.chartConfig = chartConfig;
+            }
         }
         if (isDefined(this.moreProps.chartConfig)) {
             const {

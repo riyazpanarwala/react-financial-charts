@@ -207,7 +207,7 @@ export class EachInteractiveYCoordinate extends React.Component<
                                     show
                                     cx={(priceObj.x2Value + priceObj.x1Value) / 2}
                                     cy={yValue}
-                                    r={5}
+                                    r={8}
                                     fillStyle={"#fff"}
                                     strokeStyle={"#000"}
                                     // strokeStyle={stroke}

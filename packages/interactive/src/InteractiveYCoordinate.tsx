@@ -3,7 +3,7 @@
 import { format } from "d3-format";
 import * as React from "react";
 import { ChartContext, isDefined, strokeDashTypes } from "@react-financial-charts/core";
-import { HoverTextNearMouse } from "./components";
+import { HoverTextNearMouse, InteractiveYCoordinateCustom } from "./components";
 import { getValueFromOverride, isHoverForInteractiveType, saveNodeType, terminate } from "./utils";
 import { EachInteractiveYCoordinate } from "./wrapper";
 
@@ -139,19 +139,45 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
 
     public render() {
         const { yCoordinateList, priceObj, fillStyleGain, fillStyleLoss, isShortPosition } = this.props;
-        const { override, xValueObj } = this.state;
+        const { override, xValueObj, current } = this.state;
 
         if (xValueObj?.x1Value && xValueObj?.x2Value) {
             priceObj.x1Value = xValueObj.x1Value;
             priceObj.x2Value = xValueObj.x2Value;
         }
 
-        /*
-        if (current) {
-            priceObj.x1Value = current.x1Value;
-            priceObj.x2Value = current.x2Value;
-        }
-        */
+        const { strokeDasharray, edge, textBox } = this.props.defaultPriceCoordinate;
+
+        const tempLine =
+            isDefined(current) && isDefined(current.currentVal) ? (
+                <InteractiveYCoordinateCustom
+                    yValue={current.targetVal}
+                    bgFillStyle={"#fff"}
+                    textFill={"#fff"}
+                    fontFamily={"Roboto"}
+                    fontStyle={"normal"}
+                    fontWeight={"normal"}
+                    fontSize={12}
+                    strokeStyle={"#1F9D55"}
+                    strokeDasharray={strokeDasharray}
+                    strokeWidth={1}
+                    text={""}
+                    textBox={textBox}
+                    edge={edge}
+                    priceObj={{
+                        ...priceObj,
+                        x1Value: current.x1Value,
+                        x2Value: current.x2Value,
+                        currentVal: current.currentVal,
+                        targetVal: current.targetVal,
+                        stopLossVal: current.stopLossVal,
+                    }}
+                    uniqueId={10}
+                    fillStyleGain={fillStyleGain}
+                    fillStyleLoss={fillStyleLoss}
+                    isShortPosition={isShortPosition}
+                />
+            ) : null;
 
         return (
             <g>
@@ -180,7 +206,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                         />
                     );
                 })}
-
+                {tempLine}
                 {/*
                 <MouseLocationIndicator
                     enabled={true}
@@ -203,11 +229,11 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
         const { x1, y1, x2, y2 } = xyValObj;
         const dy = y2 - y1;
         const dx = x2 - x1;
-        const targetVal = parseInt(priceObj.targetVal, 10) + dy;
-        const currentVal = parseInt(priceObj.currentVal, 10) + dy;
-        const stopLossVal = parseInt(priceObj.stopLossVal, 10) + dy;
-        const x1Val = parseInt(priceObj.x1Value, 10) + dx;
-        const x2Val = parseInt(priceObj.x2Value, 10) + dx;
+        const targetVal = parseFloat(priceObj.targetVal) + dy;
+        const currentVal = parseFloat(priceObj.currentVal) + dy;
+        const stopLossVal = parseFloat(priceObj.stopLossVal) + dy;
+        const x1Val = parseFloat(priceObj.x1Value) + dx;
+        const x2Val = parseFloat(priceObj.x2Value) + dx;
 
         return {
             x1Val,

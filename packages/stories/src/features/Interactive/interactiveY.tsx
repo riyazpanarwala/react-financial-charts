@@ -15,6 +15,7 @@ import {
     isDefined,
     isNotDefined,
     ClickCallback,
+    DrawingObjectSelector,
 } from "react-financial-charts";
 import { IOHLCData, withOHLCData } from "../../data";
 import LongPosition from "./longPosition";
@@ -61,6 +62,11 @@ class Annotated extends React.Component<ChartProps> {
         });
     };
 
+    handleSelection = (e: React.MouseEvent, interactives: any, moreProps: any) => {
+        // console.log(interactives);
+        // console.log(moreProps);
+    };
+
     public render() {
         const { data: initialData, height, ratio, width } = this.props;
 
@@ -98,33 +104,37 @@ class Annotated extends React.Component<ChartProps> {
                     <YAxis showGridLines />
                     <CandlestickSeries />
 
-                    <ClickCallback
-                        onClick={(e, moreProps) => {
-                            const { mouseXY, chartConfig, xScale } = moreProps;
-                            const [mouseX, mouseY] = mouseXY; // Extract the Y-coordinate of the mouse
-                            const yValue = chartConfig.yScale.invert(mouseY); // Convert pixel value to data value
+                    {this.state.longPositionArr.length ? (
+                        ""
+                    ) : (
+                        <ClickCallback
+                            onClick={(e, moreProps) => {
+                                const { mouseXY, chartConfig, xScale } = moreProps;
+                                const [mouseX, mouseY] = mouseXY; // Extract the Y-coordinate of the mouse
+                                const yValue = chartConfig.yScale.invert(mouseY); // Convert pixel value to data value
 
-                            const percent = 2;
-                            const targetValue = yValue + (yValue * 2) / 100;
-                            const stopLossValue = yValue - (yValue * 2) / 100;
-                            const width = 200;
+                                const percent = 2;
+                                const targetValue = yValue + (yValue * 2) / 100;
+                                const stopLossValue = yValue - (yValue * 2) / 100;
+                                const width = 200;
 
-                            this.setState({
-                                longPositionArr: [
-                                    ...this.state.longPositionArr,
-                                    {
-                                        currentVal: yValue,
-                                        targetVal: targetValue,
-                                        stopLossVal: stopLossValue,
-                                        x1Value: xScale.invert(mouseX),
-                                        x2Value: xScale.invert(mouseX + width),
-                                        percent,
-                                        id: Math.random().toString(16).slice(2),
-                                    },
-                                ],
-                            });
-                        }}
-                    />
+                                this.setState({
+                                    longPositionArr: [
+                                        ...this.state.longPositionArr,
+                                        {
+                                            currentVal: yValue,
+                                            targetVal: targetValue,
+                                            stopLossVal: stopLossValue,
+                                            x1Value: xScale.invert(mouseX),
+                                            x2Value: xScale.invert(mouseX + width),
+                                            percent,
+                                            id: Math.random().toString(16).slice(2),
+                                        },
+                                    ],
+                                });
+                            }}
+                        />
+                    )}
 
                     {this.state.longPositionArr.map((v) => {
                         return (
@@ -138,6 +148,15 @@ class Annotated extends React.Component<ChartProps> {
                             />
                         );
                     })}
+
+                    <DrawingObjectSelector
+                        enabled
+                        getInteractiveNodes={() => interactiveNodes}
+                        drawingObjectMap={{
+                            InteractiveYCoordinate: "yCoordinateList",
+                        }}
+                        onSelect={this.handleSelection}
+                    />
                 </Chart>
             </ChartCanvas>
         );

@@ -101,7 +101,9 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
         coordinates[0].text = `${isShortPosition ? "Stop" : "Target"}: ${round2Decimal(targetVal)} (${round2Decimal(
             (targetVal * 100) / coordinates[1].yValue,
         )}%)`;
-        coordinates[1].text = `Risk/Reward : ${round2Decimal(targetVal / stopLossVal)}`;
+        coordinates[1].text = `Risk/Reward : ${
+            isShortPosition ? round2Decimal(stopLossVal / targetVal) : round2Decimal(targetVal / stopLossVal)
+        }`;
         coordinates[2].text = `${isShortPosition ? "Target" : "Stop"}: ${round2Decimal(stopLossVal)} (${round2Decimal(
             (stopLossVal * 100) / coordinates[1].yValue,
         )}%)`;
@@ -196,9 +198,13 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
         }));
     };
 
+    if (!priceObj.id) {
+        return <></>;
+    }
+
     return (
         <InteractiveYCoordinate
-            ref={saveInteractiveNode("InteractiveYCoordinate", priceObj.id)}
+            ref={saveInteractiveNode("InteractiveYCoordinate", 1)}
             enabled={true}
             onDragCompleteHorizontal={onDragCompleteHorizontal}
             onDragComplete={onDragComplete}

@@ -214,7 +214,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
         const { yValue, textBox, priceObj } = this.props;
 
         const {
-            chartConfig: { yScale, height },
+            chartConfig: { yScale, height, width },
             xScale,
         } = moreProps;
 
@@ -228,9 +228,12 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
             };
 
             const { currentVal, stopLossVal, targetVal, x1Value, x2Value } = priceObj;
+
+            const x1Val = xScale(x1Value);
+            const x2Val = xScale(x2Value);
             return {
-                x1: xScale(x1Value),
-                x2: xScale(x2Value),
+                x1: x1Val,
+                x2: x2Val > width && x1Val <= width ? width : x2Val,
                 y,
                 rect,
                 currentVal: Math.round(yScale(currentVal)),

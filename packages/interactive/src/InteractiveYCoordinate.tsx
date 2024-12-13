@@ -163,7 +163,11 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                     strokeWidth={1}
                     text={""}
                     textBox={textBox}
-                    edge={edge}
+                    edge={{
+                        ...edge,
+                        stroke: "#000",
+                        fill: "grey",
+                    }}
                     priceObj={{
                         ...priceObj,
                         x1Value: current.x1Value,

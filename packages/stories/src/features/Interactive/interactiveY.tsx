@@ -16,7 +16,9 @@ import {
     isNotDefined,
     ClickCallback,
     DrawingObjectSelector,
+    BarSeries,
 } from "react-financial-charts";
+import { format } from "d3-format";
 import { IOHLCData, withOHLCData } from "../../data";
 import LongPosition from "./longPosition";
 
@@ -86,6 +88,11 @@ class Annotated extends React.Component<ChartProps> {
         const min = xAccessor(data[Math.max(0, data.length - 100)]);
         const xExtents = [min, max];
 
+        const gridHeight = 500;
+        const barChartHeight = gridHeight / 5;
+        const barChartOrigin = (_: any, h: any) => [0, h - barChartHeight];
+        const chartHeight = gridHeight - barChartHeight;
+
         return (
             <ChartCanvas
                 height={height}
@@ -99,12 +106,12 @@ class Annotated extends React.Component<ChartProps> {
                 xAccessor={xAccessor}
                 xExtents={xExtents}
             >
-                <Chart id={1} yExtents={this.yExtents}>
+                <Chart id={1} height={chartHeight} yExtents={this.yExtents}>
                     <XAxis showGridLines />
                     <YAxis showGridLines />
                     <CandlestickSeries />
 
-                    {this.state.longPositionArr.length ? (
+                    {this.state.longPositionArr.length > 1 ? (
                         ""
                     ) : (
                         <ClickCallback
@@ -156,6 +163,36 @@ class Annotated extends React.Component<ChartProps> {
                             InteractiveYCoordinate: "yCoordinateList",
                         }}
                         onSelect={this.handleSelection}
+                    />
+                </Chart>
+
+                <Chart
+                    id={2}
+                    height={barChartHeight}
+                    origin={barChartOrigin}
+                    yExtents={(d) => {
+                        return d.volume;
+                    }}
+                    padding={{ top: 8, bottom: 4 }}
+                >
+                    <XAxis
+                        axisAt="bottom"
+                        orient="bottom"
+                        tickLabelFill={"#fff"}
+                        tickStrokeStyle={"#fff"}
+                        strokeStyle={"#fff"}
+                    />
+                    <YAxis
+                        ticks={4}
+                        tickFormat={format(".2s")}
+                        tickLabelFill={"#fff"}
+                        tickStrokeStyle={"#fff"}
+                        strokeStyle={"#fff"}
+                    />
+
+                    <BarSeries
+                        yAccessor={(d) => d.volume}
+                        fillStyle={(d) => (d.close > d.open ? "rgba(116, 226, 68, 1)" : "rgba(232, 121, 117, 1)")}
                     />
                 </Chart>
             </ChartCanvas>

@@ -231,14 +231,19 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
 
             const x1Val = xScale(x1Value);
             const x2Val = xScale(x2Value);
+
+            const currentV = Math.round(yScale(currentVal));
+            const stopLossV = Math.round(yScale(stopLossVal));
+            const targetV = Math.round(yScale(targetVal));
+
             return {
                 x1: x1Val,
                 x2: x2Val > width && x1Val <= width ? width : x2Val,
                 y,
                 rect,
-                currentVal: Math.round(yScale(currentVal)),
-                stopLossVal: Math.round(yScale(stopLossVal)),
-                targetVal: Math.round(yScale(targetVal)),
+                currentVal: currentV <= height ? currentV : height,
+                stopLossVal: stopLossV <= height ? stopLossV : height,
+                targetVal: targetV <= height ? targetV : height,
             };
         }
     };

@@ -55,10 +55,14 @@ export function isHoverForInteractiveType(interactiveType: any) {
 
 export function isHover(moreProps: any) {
     // @ts-ignore
-    const hovering = mapObject(this.nodes, (node) => node.isHover(moreProps)).reduce((a, b) => {
-        return a || b;
-    });
-    return hovering;
+    const arr = mapObject(this.nodes, (node) => node.isHover(moreProps));
+    if (arr.length) {
+        const hovering = arr?.reduce((a, b) => {
+            return a || b;
+        });
+        return hovering;
+    }
+    return false;
 }
 
 function getMouseXY(moreProps: any, [ox, oy]: any) {

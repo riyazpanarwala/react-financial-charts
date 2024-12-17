@@ -69,6 +69,20 @@ class Annotated extends React.Component<ChartProps> {
         // console.log(moreProps);
     };
 
+    onSelected = (isSelected, mainId) => {
+        this.setState((prevState) => {
+            return {
+                ...prevState,
+                longPositionArr: prevState.longPositionArr.map((v) => {
+                    if (v.id === mainId) {
+                        return { ...v, selected: isSelected };
+                    }
+                    return v;
+                }),
+            };
+        });
+    };
+
     public render() {
         const { data: initialData, height, ratio, width } = this.props;
 
@@ -136,6 +150,7 @@ class Annotated extends React.Component<ChartProps> {
                                             x2Value: xScale.invert(mouseX + width),
                                             percent,
                                             id: Math.random().toString(16).slice(2),
+                                            selected: true,
                                         },
                                     ],
                                 });
@@ -152,6 +167,7 @@ class Annotated extends React.Component<ChartProps> {
                                 onDeleteMain={this.onDelete}
                                 isPriceObj={this.props.isPriceObj}
                                 isShortPosition={this.props.isShortPosition}
+                                onSelected={this.onSelected}
                             />
                         );
                     })}
@@ -159,9 +175,11 @@ class Annotated extends React.Component<ChartProps> {
                     <DrawingObjectSelector
                         enabled
                         getInteractiveNodes={() => interactiveNodes}
-                        drawingObjectMap={{
-                            InteractiveYCoordinate: "yCoordinateList",
-                        }}
+                        drawingObjectMap={
+                            {
+                                // InteractiveYCoordinate: "yCoordinateList",
+                            }
+                        }
                         onSelect={this.handleSelection}
                     />
                 </Chart>

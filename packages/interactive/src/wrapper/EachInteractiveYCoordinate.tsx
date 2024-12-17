@@ -44,6 +44,10 @@ export interface EachInteractiveYCoordinateProps {
     readonly onDragCompleteWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
     readonly onDragWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
     readonly isShortPosition?: boolean;
+    readonly onClickWhenHover: (e: React.MouseEvent, id: any) => void;
+    readonly onClickOutside: (e: React.MouseEvent, id: any) => void;
+    readonly isShowOnSelect: boolean;
+    readonly isShwCloseIcon: boolean;
 }
 
 interface EachInteractiveYCoordinateState {
@@ -103,6 +107,10 @@ export class EachInteractiveYCoordinate extends React.Component<
             fillStyleGain,
             fillStyleLoss,
             isShortPosition,
+            onClickWhenHover,
+            onClickOutside,
+            isShowOnSelect,
+            isShwCloseIcon,
         } = this.props;
 
         const { hover, closeIconHover } = this.state;
@@ -119,6 +127,8 @@ export class EachInteractiveYCoordinate extends React.Component<
                   onDragComplete,
               }
             : {};
+
+        const isDisplayIcons = isShowOnSelect ? priceObj.selected : true;
 
         return (
             <g>
@@ -149,8 +159,14 @@ export class EachInteractiveYCoordinate extends React.Component<
                             fillStyleGain={fillStyleGain}
                             fillStyleLoss={fillStyleLoss}
                             isShortPosition={isShortPosition}
+                            onClickWhenHover={(e) => {
+                                onClickWhenHover(e, priceObj.id);
+                            }}
+                            onClickOutside={(e) => {
+                                onClickOutside(e, priceObj.id);
+                            }}
                         />
-                        {id === 10 && (
+                        {id === 10 && isShwCloseIcon && (
                             <ClickableShapeCustom
                                 show
                                 hovering={closeIconHover}
@@ -170,7 +186,7 @@ export class EachInteractiveYCoordinate extends React.Component<
                             />
                         )}
 
-                        {id === 11 && (
+                        {id === 11 && isDisplayIcons && (
                             <>
                                 <ClickableCircle
                                     ref={this.saveNodeType("edge1")}

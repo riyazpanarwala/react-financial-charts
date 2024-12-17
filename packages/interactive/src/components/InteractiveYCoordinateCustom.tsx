@@ -39,6 +39,8 @@ export interface InteractiveYCoordinateCustomProps {
     readonly fillStyleGain: string;
     readonly fillStyleLoss: string;
     readonly isShortPosition?: boolean;
+    readonly onClickWhenHover?: (e: React.MouseEvent, moreProps: any) => void;
+    readonly onClickOutside?: (e: React.MouseEvent, moreProps: any) => void;
 }
 
 export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCoordinateCustomProps> {
@@ -57,7 +59,7 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
     public render() {
         const { interactiveCursorClass } = this.props;
         const { onHover, onUnHover } = this.props;
-        const { onDragStart, onDrag, onDragComplete } = this.props;
+        const { onDragStart, onDrag, onDragComplete, onClickWhenHover, onClickOutside } = this.props;
 
         return (
             <GenericChartComponent
@@ -72,6 +74,8 @@ export class InteractiveYCoordinateCustom extends React.Component<InteractiveYCo
                 onDragComplete={onDragComplete}
                 onHover={onHover}
                 onUnHover={onUnHover}
+                onClickWhenHover={onClickWhenHover}
+                onClickOutside={onClickOutside}
                 drawOn={["mousemove", "mouseleave", "pan", "drag"]}
             />
         );

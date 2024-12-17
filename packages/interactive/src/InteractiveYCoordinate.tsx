@@ -58,6 +58,10 @@ interface InteractiveYCoordinateProps {
     readonly onDragCompleteWhole: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
     readonly onComplete: (e: React.MouseEvent, newObj: any, moreProps: any) => void;
     readonly isShortPosition?: boolean;
+    readonly onRiskRewardClick: (mainId: any, id: any) => void;
+    readonly onOutsideClick: (mainId: any, id: any) => void;
+    readonly isShowOnSelect?: boolean;
+    readonly isShwCloseIcon?: boolean;
 }
 
 interface InteractiveYCoordinateState {
@@ -115,6 +119,8 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
         yCoordinateList: [],
         priceObj: {},
         isShortPosition: false,
+        isShowOnSelect: true,
+        isShwCloseIcon: true,
     };
 
     public static contextType = ChartContext;
@@ -138,7 +144,15 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
     }
 
     public render() {
-        const { yCoordinateList, priceObj, fillStyleGain, fillStyleLoss, isShortPosition } = this.props;
+        const {
+            yCoordinateList,
+            priceObj,
+            fillStyleGain,
+            fillStyleLoss,
+            isShortPosition,
+            isShowOnSelect,
+            isShwCloseIcon,
+        } = this.props;
         const { override, xValueObj, current } = this.state;
 
         if (xValueObj?.x1Value && xValueObj?.x2Value) {
@@ -207,6 +221,14 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
                             onDragCompleteWhole={this.onDragCompleteWhole}
                             onDragWhole={this.onDragWhole}
                             isShortPosition={isShortPosition}
+                            onClickWhenHover={(e, mainId) => {
+                                this.handleRiskRewardClick(e, mainId, each.id);
+                            }}
+                            onClickOutside={(e, mainId) => {
+                                this.handleOutsideClick(e, mainId, each.id);
+                            }}
+                            isShowOnSelect={isShowOnSelect}
+                            isShwCloseIcon={isShwCloseIcon}
                         />
                     );
                 })}
@@ -424,5 +446,19 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
         this.setState({
             xValueObj,
         });
+    };
+
+    private readonly handleRiskRewardClick = (_: React.MouseEvent, mainId: any, id: any) => {
+        const { onRiskRewardClick } = this.props;
+        if (onRiskRewardClick !== undefined) {
+            onRiskRewardClick(mainId, id);
+        }
+    };
+
+    private readonly handleOutsideClick = (_: React.MouseEvent, mainId: any, id: any) => {
+        const { onOutsideClick } = this.props;
+        if (onOutsideClick !== undefined) {
+            onOutsideClick(mainId, id);
+        }
     };
 }

@@ -47,7 +47,14 @@ const buy = {
     },
 };
 
-const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMain, isShortPosition }: any) => {
+const LongPosition = ({
+    saveInteractiveNode,
+    currentObj,
+    isPriceObj,
+    onDeleteMain,
+    isShortPosition,
+    onSelected,
+}: any) => {
     const [yCoordinateList, setYCoordinateList] = useState<any>([]);
     const [priceObj, setPriceObj] = useState<any>({});
     // const [enableInteractiveObject, setEnableInteractiveObject] = useState(false)
@@ -60,6 +67,7 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
         setYCoordinateList([
             {
                 ...alert,
+                selected: true,
                 yValue: round2Decimal(targetVal),
                 id: 10,
                 draggable: true,
@@ -67,6 +75,7 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
             },
             {
                 ...buy,
+                selected: true,
                 yValue: round2Decimal(currentVal),
                 id: 11,
                 draggable: true,
@@ -74,6 +83,7 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
             },
             {
                 ...sell,
+                selected: true,
                 yValue: round2Decimal(stopLossVal),
                 id: 12,
                 draggable: true,
@@ -84,6 +94,20 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
         ]);
         setPriceObj(currentObj);
     }, []);
+
+    React.useEffect(() => {
+        let selected = false;
+        yCoordinateList.forEach((v) => {
+            if (v.selected) {
+                selected = true;
+            }
+        });
+        onSelected(selected, priceObj.id);
+        setPriceObj((obj) => ({
+            ...obj,
+            selected,
+        }));
+    }, [yCoordinateList]);
 
     const onDelete = (e: any, yCoordinate: number, moreProps: any): void => {
         e.preventDefault();
@@ -198,6 +222,28 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
         }));
     };
 
+    const onRiskRewardClick = (mainId, id) => {
+        setYCoordinateList((prevState) =>
+            prevState.map((v) => {
+                if (v.id === id && priceObj.id === mainId) {
+                    return { ...v, selected: true };
+                }
+                return v;
+            }),
+        );
+    };
+
+    const onOutsideClick = (mainId, id) => {
+        setYCoordinateList((prevState) =>
+            prevState.map((v) => {
+                if (v.id === id && priceObj.id === mainId) {
+                    return { ...v, selected: false };
+                }
+                return v;
+            }),
+        );
+    };
+
     if (!priceObj.id) {
         return <></>;
     }
@@ -216,6 +262,10 @@ const LongPosition = ({ saveInteractiveNode, currentObj, isPriceObj, onDeleteMai
             fillStyleLoss="rgba(232, 121, 117, 0.3)"
             onComplete={onComplete}
             isShortPosition={isShortPosition}
+            onRiskRewardClick={onRiskRewardClick}
+            onOutsideClick={onOutsideClick}
+            isShowOnSelect={true}
+            isShwCloseIcon={false}
         />
     );
 };

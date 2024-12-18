@@ -1,6 +1,6 @@
 {
     "name": "@riyazpanarwala/indicators",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "description": "Indicators for react-financial-charts",
     "publishConfig": {
         "access": "public"

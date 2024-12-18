@@ -1,6 +1,6 @@
 {
-    "name": "@riyazpanarwala/react-financial-charts",
-    "version": "2.0.1",
+    "name": "root",
+    "version": "2.0.2",
     "description": "Charts dedicated to finance",
     "repository": {
         "type": "git",
@@ -106,9 +106,5 @@
         "@riyazpanarwala/tooltip": "file:packages/tooltip",
         "@riyazpanarwala/utils": "file:packages/utils",
         "@riyazpanarwala/react-financial-charts": "file:packages/charts"
-    },
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://registry.npmjs.org/"
     }
 }

@@ -1,7 +1,10 @@
 {
-    "name": "react-financial-charts",
-    "version": "2.0.1",
+    "name": "@riyazpanarwala/react-financial-charts",
+    "version": "2.0.2",
     "description": "React charts specific to finance.",
+    "publishConfig": {
+        "access": "public"
+    },
     "main": "./lib/index.js",
     "typings": "./lib/index.d.ts",
     "files": [

@@ -1,6 +1,6 @@
 {
     "name": "@riyazpanarwala/utils",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Utils for react-financial-charts",
     "publishConfig": {
         "access": "public"

@@ -1,5 +1,5 @@
 {
-    "name": "@react-financial-charts/interactive",
+    "name": "@riyazpanarwala/interactive",
     "version": "2.0.0",
     "description": "Interactive features for react-financial-charts",
     "publishConfig": {
@@ -26,10 +26,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/reactivemarkets/react-financial-charts.git"
+        "url": "https://github.com/riyazpanarwala/react-financial-charts.git"
     },
     "bugs": {
-        "url": "https://github.com/reactivemarkets/react-financial-charts/issues"
+        "url": "https://github.com/riyazpanarwala/react-financial-charts/issues"
     },
     "scripts": {
         "build": "npm run clean && npm run compile",
@@ -38,8 +38,8 @@
         "watch": "tsc -p tsconfig.json --watch --preserveWatchOutput"
     },
     "dependencies": {
-        "@react-financial-charts/coordinates": "file:../coordinates",
-        "@react-financial-charts/core": "file:../core",
+        "@riyazpanarwala/coordinates": "file:../coordinates",
+        "@riyazpanarwala/core": "file:../core",
         "d3-array": "^2.9.1",
         "d3-format": "^2.0.0",
         "d3-interpolate": "^2.0.1",

@@ -17,7 +17,7 @@ import {
     ClickCallback,
     DrawingObjectSelector,
     BarSeries,
-} from "react-financial-charts";
+} from "@riyazpanarwala/react-financial-charts";
 import { format } from "d3-format";
 import { IOHLCData, withOHLCData } from "../../data";
 import LongPosition from "./longPosition";

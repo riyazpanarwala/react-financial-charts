@@ -1,9 +1,9 @@
 /* eslint-disable */
 
 import * as React from "react";
-import { drawOnCanvas } from "@react-financial-charts/coordinates/lib/EdgeCoordinateV3";
-import { getYCoordinate } from "@react-financial-charts/coordinates/lib/MouseCoordinateY";
-import { getMouseCanvas, GenericChartComponent, strokeDashTypes } from "@react-financial-charts/core";
+import { drawOnCanvas } from "@riyazpanarwala/coordinates/lib/EdgeCoordinateV3";
+import { getYCoordinate } from "@riyazpanarwala/coordinates/lib/MouseCoordinateY";
+import { getMouseCanvas, GenericChartComponent, strokeDashTypes } from "@riyazpanarwala/core";
 
 export interface InteractiveYCoordinateCustomProps {
     readonly bgFillStyle: string;

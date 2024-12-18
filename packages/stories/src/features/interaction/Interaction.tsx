@@ -9,7 +9,7 @@ import {
     withDeviceRatio,
     withSize,
     IZoomAnchorOptions,
-} from "react-financial-charts";
+} from "@riyazpanarwala/react-financial-charts";
 import { IOHLCData, withOHLCData } from "../../data";
 
 interface ChartProps {

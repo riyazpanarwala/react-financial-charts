@@ -1,12 +1,12 @@
 import * as React from "react";
-import { drawOnCanvas } from "@react-financial-charts/coordinates/lib/EdgeCoordinateV3";
-import { getYCoordinate } from "@react-financial-charts/coordinates/lib/MouseCoordinateY";
+import { drawOnCanvas } from "@riyazpanarwala/coordinates/lib/EdgeCoordinateV3";
+import { getYCoordinate } from "@riyazpanarwala/coordinates/lib/MouseCoordinateY";
 import {
     getStrokeDasharrayCanvas,
     getMouseCanvas,
     GenericChartComponent,
     strokeDashTypes,
-} from "@react-financial-charts/core";
+} from "@riyazpanarwala/core";
 
 export interface InteractiveYCoordinateProps {
     readonly bgFillStyle: string;

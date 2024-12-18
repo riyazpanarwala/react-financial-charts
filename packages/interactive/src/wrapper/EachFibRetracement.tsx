@@ -1,6 +1,6 @@
 import * as React from "react";
-import { head, last, noop } from "@react-financial-charts/core";
-import { getXValue } from "@react-financial-charts/core/lib/utils/ChartDataUtil";
+import { head, last, noop } from "@riyazpanarwala/core";
+import { getXValue } from "@riyazpanarwala/core/lib/utils/ChartDataUtil";
 import { isHover, saveNodeType } from "../utils";
 import { ClickableCircle, HoverTextNearMouse, InteractiveStraightLine, generateLine, Text } from "../components";
 import { getNewXY } from "./EachTrendLine";

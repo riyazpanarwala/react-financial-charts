@@ -1,5 +1,5 @@
 # Utils
 
 ```bash
-npm i @react-financial-charts/utils
+npm i @riyazpanarwala/utils
 ```

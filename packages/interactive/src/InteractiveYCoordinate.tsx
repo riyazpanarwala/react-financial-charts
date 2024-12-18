@@ -2,7 +2,7 @@
 
 import { format } from "d3-format";
 import * as React from "react";
-import { ChartContext, isDefined, strokeDashTypes } from "@react-financial-charts/core";
+import { ChartContext, isDefined, strokeDashTypes } from "@riyazpanarwala/core";
 import { HoverTextNearMouse, InteractiveYCoordinateCustom } from "./components";
 import { getValueFromOverride, isHoverForInteractiveType, saveNodeType, terminate } from "./utils";
 import { EachInteractiveYCoordinate } from "./wrapper";

@@ -15,7 +15,7 @@ import {
     Measurement,
     isDefined,
     isNotDefined,
-} from "react-financial-charts";
+} from "@riyazpanarwala/react-financial-charts";
 import { IOHLCData, withOHLCData } from "../../data";
 
 interface ChartProps {

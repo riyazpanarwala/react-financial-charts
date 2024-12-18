@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Chart, ChartCanvas } from "@react-financial-charts/core";
-import { XAxis, YAxis } from "@react-financial-charts/axes";
-import { rsi } from "@react-financial-charts/indicators";
-import { discontinuousTimeScaleProviderBuilder } from "@react-financial-charts/scales";
-import { RSISeries } from "@react-financial-charts/series";
-import { RSITooltip } from "@react-financial-charts/tooltip";
+import { Chart, ChartCanvas } from "@riyazpanarwala/core";
+import { XAxis, YAxis } from "@riyazpanarwala/axes";
+import { rsi } from "@riyazpanarwala/indicators";
+import { discontinuousTimeScaleProviderBuilder } from "@riyazpanarwala/scales";
+import { RSISeries } from "@riyazpanarwala/series";
+import { RSITooltip } from "@riyazpanarwala/tooltip";
 import { IOHLCData, withOHLCData } from "../../data";
-import { withDeviceRatio, withSize } from "@react-financial-charts/utils";
+import { withDeviceRatio, withSize } from "@riyazpanarwala/utils";
 
 interface ChartProps {
     readonly data: IOHLCData[];

@@ -12,7 +12,7 @@ import {
     Cursor,
     CursorProps,
     CurrentCoordinate,
-} from "react-financial-charts";
+} from "@riyazpanarwala/react-financial-charts";
 import { IOHLCData, withOHLCData } from "../../data";
 
 interface ChartProps extends CursorProps {

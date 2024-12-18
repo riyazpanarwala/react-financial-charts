@@ -1,5 +1,5 @@
 import * as React from "react";
-import { isDefined, GenericChartComponent } from "@react-financial-charts/core";
+import { isDefined, GenericChartComponent } from "@riyazpanarwala/core";
 
 const PADDING = 10;
 const MIN_WIDTH = PADDING;

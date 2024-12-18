@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getMouseCanvas, GenericChartComponent } from "@react-financial-charts/core";
+import { getMouseCanvas, GenericChartComponent } from "@riyazpanarwala/core";
 
 export interface InteractiveTextProps {
     readonly bgFillStyle: string;

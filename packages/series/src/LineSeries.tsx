@@ -6,7 +6,7 @@ import {
     getMouseCanvas,
     GenericChartComponent,
     MoreProps,
-} from "@react-financial-charts/core";
+} from "@riyazpanarwala/core";
 import { line, CurveFactoryLineOnly, CurveFactory } from "d3-shape";
 import * as React from "react";
 

@@ -1,4 +1,4 @@
-import { ChartContext, strokeDashTypes } from "@react-financial-charts/core";
+import { ChartContext, strokeDashTypes } from "@riyazpanarwala/core";
 import * as React from "react";
 import { Axis } from "./Axis";
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { strokeDashTypes } from "@react-financial-charts/core";
+import { strokeDashTypes } from "@riyazpanarwala/core";
 import { isHover, saveNodeType } from "../utils";
 import {
     ClickableShape,

@@ -23,10 +23,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/reactivemarkets/react-financial-charts.git"
+        "url": "https://github.com/riyazpanarwala/react-financial-charts.git"
     },
     "bugs": {
-        "url": "https://github.com/reactivemarkets/react-financial-charts/issues"
+        "url": "https://github.com/riyazpanarwala/react-financial-charts/issues"
     },
     "scripts": {
         "build": "npm run clean && npm run compile",
@@ -34,16 +34,16 @@
         "compile": "tsc -p tsconfig.json"
     },
     "dependencies": {
-        "@react-financial-charts/annotations": "file:../annotations",
-        "@react-financial-charts/axes": "file:../axes",
-        "@react-financial-charts/coordinates": "file:../coordinates",
-        "@react-financial-charts/core": "file:../core",
-        "@react-financial-charts/indicators": "file:../indicators",
-        "@react-financial-charts/interactive": "file:../interactive",
-        "@react-financial-charts/scales": "file:../scales",
-        "@react-financial-charts/series": "file:../series",
-        "@react-financial-charts/tooltip": "file:../tooltip",
-        "@react-financial-charts/utils": "file:../utils"
+        "@riyazpanarwala/annotations": "file:../annotations",
+        "@riyazpanarwala/axes": "file:../axes",
+        "@riyazpanarwala/coordinates": "file:../coordinates",
+        "@riyazpanarwala/core": "file:../core",
+        "@riyazpanarwala/indicators": "file:../indicators",
+        "@riyazpanarwala/interactive": "file:../interactive",
+        "@riyazpanarwala/scales": "file:../scales",
+        "@riyazpanarwala/series": "file:../series",
+        "@riyazpanarwala/tooltip": "file:../tooltip",
+        "@riyazpanarwala/utils": "file:../utils"
     },
     "peerDependencies": {
         "react": "^16.0.0 || ^17.0.0 || ^18.0.0",

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { forceIndex } from "@react-financial-charts/indicators";
+import { forceIndex } from "@riyazpanarwala/indicators";
 import ForceIndicator from "./ForceIndicator";
 
 export default {

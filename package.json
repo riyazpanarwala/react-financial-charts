@@ -106,5 +106,9 @@
         "@riyazpanarwala/tooltip": "file:packages/tooltip",
         "@riyazpanarwala/utils": "file:packages/utils",
         "@riyazpanarwala/react-financial-charts": "file:packages/charts"
+    },
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
     }
 }

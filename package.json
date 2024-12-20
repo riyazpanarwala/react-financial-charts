@@ -1,6 +1,6 @@
 {
     "name": "@riyazpanarwala/react-financial-charts",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "description": "Charts dedicated to finance",
     "repository": {
         "type": "git",
@@ -84,7 +84,6 @@
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-react": "^7.32.2",
         "find-cache-dir": "3.3.1",
-        "lerna": "^6.6.2",
         "npm-run-all": "^4.1.5",
         "prettier": "^2.8.8",
         "react-docgen-typescript-loader": "^3.7.2",
@@ -94,6 +93,7 @@
         "typescript": "^4.9.5"
     },
     "dependencies": {
+        "lerna": "^6.6.2",
         "@riyazpanarwala/annotations": "file:packages/annotations",
         "@riyazpanarwala/axes": "file:packages/axes",
         "@riyazpanarwala/coordinates": "file:packages/coordinates",

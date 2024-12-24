@@ -36,7 +36,7 @@
         "watch": "lerna run watch --parallel"
     },
     "workspaces": [
-        "./packages/*"
+        "packages/*"
     ],
     "devDependencies": {
         "@babel/core": "^7.13.1",

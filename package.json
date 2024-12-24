@@ -54,7 +54,7 @@
         "@types/d3-format": "^2.0.0",
         "@types/d3-interpolate": "^3.0.4",
         "@types/d3-path": "^2.0.0",
-        "@types/d3-scale": "^3.2.2",
+        "@types/d3-scale": "^4.0.8",
         "@types/d3-selection": "^2.0.0",
         "@types/d3-shape": "^2.0.0",
         "@types/d3-time-format": "^3.0.0",

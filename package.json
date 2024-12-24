@@ -3,6 +3,7 @@
     "private": true,
     "license": "MIT",
     "scripts": {
+        "postinstall": "npm run build",
         "build": "lerna run build",
         "build:annotations": "lerna run build --scope='*/annotations'",
         "build:axes": "lerna run build --scope='*/axes'",

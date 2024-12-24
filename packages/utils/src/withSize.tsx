@@ -14,7 +14,7 @@ export const withSize = (props?: Omit<AutoSizerProps, "children">) => {
             public render() {
                 return (
                     <AutoSizer {...props} disableHeight={false} disableWidth={false}>
-                        {({ height, width }) => {
+                        {({ height, width }: any) => {
                             return <OriginalComponent {...(this.props as TProps)} height={height} width={width} />;
                         }}
                     </AutoSizer>

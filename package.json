@@ -52,7 +52,7 @@
         "@types/d3-dsv": "^2.0.1",
         "@types/d3-force": "^2.1.1",
         "@types/d3-format": "^2.0.0",
-        "@types/d3-interpolate": "^2.0.0",
+        "@types/d3-interpolate": "^3.0.4",
         "@types/d3-path": "^2.0.0",
         "@types/d3-scale": "^3.2.2",
         "@types/d3-selection": "^2.0.0",

@@ -3,7 +3,7 @@
     "private": true,
     "license": "MIT",
     "scripts": {
-        "build": "run-s build:*",
+        "buildPackage": "run-s build:*",
         "build:annotations": "npm run build --workspace=packages/annotations",
         "build:axes": "npm run build --workspace=packages/axes",
         "build:charts": "npm run build --workspace=packages/charts",
@@ -19,7 +19,7 @@
         "clean:packages": "npm run clean --workspaces",
         "clean:modules": "npm run clean --workspaces",
         "convert": "npm run link",
-        "docs": "run-s build docs:stories",
+        "docs": "run-s buildPackage docs:stories",
         "docs:stories": "npm run docs --workspaces",
         "link": "npm link",
         "lint": "eslint . --quiet",
@@ -27,8 +27,8 @@
         "start": "run-p watch start:stories",
         "start:stories": "npm run start --workspace=packages/stories",
         "test": "npm run test --workspaces",
-        "prestart": "npm run build",
-        "prepublishOnly": "npm run build",
+        "prestart": "npm run buildPackage",
+        "prepublishOnly": "npm run buildPackage",
         "publish": "npm publish --workspaces",
         "release": "npm version",
         "release:pre": "npm version --preid=pre",
@@ -46,7 +46,7 @@
         "watch:utils": "npm --workspace=packages/utils run watch"
     },
     "workspaces": [
-        "packages/*"
+        "./packages/*"
     ],
     "devDependencies": {
         "@babel/core": "^7.13.1",

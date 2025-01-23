@@ -150,9 +150,11 @@ export class Cursor extends React.Component<CursorProps> {
                 ctx.beginPath();
 
                 const xShape = this.getXCursorShape(moreProps);
-                xCursorShapeStrokeDasharray === undefined
-                    ? ctx.fillRect(xShape.xPos, 0, xShape.shapeWidth, xShape.height)
-                    : ctx.rect(xShape.xPos, 0, xShape.shapeWidth, xShape.height);
+                if (xCursorShapeStrokeDasharray === undefined) {
+                    ctx.fillRect(xShape.xPos, 0, xShape.shapeWidth, xShape.height);
+                } else {
+                    ctx.rect(xShape.xPos, 0, xShape.shapeWidth, xShape.height);
+                }
                 ctx.fill();
             } else {
                 if (line.strokeStyle !== undefined) {

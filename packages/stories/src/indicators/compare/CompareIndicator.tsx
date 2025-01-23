@@ -16,7 +16,7 @@ import {
     YAxis,
     withDeviceRatio,
     withSize,
-} from "react-financial-charts";
+} from "@riyazpanarwala/react-financial-charts";
 import { IOHLCData, withOHLCData } from "../../data";
 
 interface ChartProps {

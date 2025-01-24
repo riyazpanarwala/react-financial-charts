@@ -1,6 +1,6 @@
 {
     "name": "@riyazpanarwala/react-financial-charts",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "description": "Charts dedicated to finance",
     "repository": {
         "type": "git",
@@ -46,7 +46,9 @@
         "prestart": "npm run buildPackage",
         "prepublishOnly": "npm run buildPackage",
         "publish": "npm publish --workspaces",
+        "prepare-publish": "node update-dependencies.js",
         "publish-all": "node publish.js",
+        "npmRelease": "npm run prepare-publish && npm run publish-all",
         "release": "npm version",
         "release:pre": "npm version --preid=pre",
         "release:grad": "npm version --preid=grad",

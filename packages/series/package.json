@@ -1,6 +1,6 @@
 {
     "name": "@riyazpanarwala/series",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "Series for react-financial-charts",
     "publishConfig": {
         "access": "public"

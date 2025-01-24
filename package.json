@@ -1,6 +1,6 @@
 {
     "name": "@riyazpanarwala/react-financial-charts",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "Charts dedicated to finance",
     "repository": {
         "type": "git",
@@ -46,6 +46,7 @@
         "prestart": "npm run buildPackage",
         "prepublishOnly": "npm run buildPackage",
         "publish": "npm publish --workspaces",
+        "publish-all": "node publish.js",
         "release": "npm version",
         "release:pre": "npm version --preid=pre",
         "release:grad": "npm version --preid=grad",
@@ -62,7 +63,7 @@
         "watch:utils": "npm --workspace=packages/utils run watch"
     },
     "workspaces": [
-        "./packages/*"
+        "packages/*"
     ],
     "devDependencies": {
         "@babel/core": "^7.13.1",
@@ -105,17 +106,17 @@
         "typescript-eslint": "^8.18.2"
     },
     "dependencies": {
-        "@riyazpanarwala/annotations": "file:packages/annotations",
-        "@riyazpanarwala/axes": "file:packages/axes",
-        "@riyazpanarwala/coordinates": "file:packages/coordinates",
-        "@riyazpanarwala/core": "file:packages/core",
-        "@riyazpanarwala/indicators": "file:packages/indicators",
-        "@riyazpanarwala/interactive": "file:packages/interactive",
-        "@riyazpanarwala/scales": "file:packages/scales",
-        "@riyazpanarwala/series": "file:packages/series",
-        "@riyazpanarwala/stories": "file:packages/stories",
-        "@riyazpanarwala/tooltip": "file:packages/tooltip",
-        "@riyazpanarwala/utils": "file:packages/utils",
-        "@riyazpanarwala/react-financial-charts": "file:packages/charts"
+        "@riyazpanarwala/annotations": "workspace:*",
+        "@riyazpanarwala/axes": "workspace:*",
+        "@riyazpanarwala/coordinates": "workspace:*",
+        "@riyazpanarwala/core": "workspace:*",
+        "@riyazpanarwala/indicators": "workspace:*",
+        "@riyazpanarwala/interactive": "workspace:*",
+        "@riyazpanarwala/scales": "workspace:*",
+        "@riyazpanarwala/series": "workspace:*",
+        "@riyazpanarwala/stories": "workspace:*",
+        "@riyazpanarwala/tooltip": "workspace:*",
+        "@riyazpanarwala/utils": "workspace:*",
+        "@riyazpanarwala/react-financial-charts": "workspace:*"
     }
 }

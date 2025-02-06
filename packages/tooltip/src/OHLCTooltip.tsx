@@ -9,6 +9,7 @@ const displayTextsDefault = {
     h: " H: ",
     l: " L: ",
     c: " C: ",
+    v: " V: ",
     na: "n/a",
 };
 
@@ -16,11 +17,13 @@ export interface OHLCTooltipProps {
     readonly accessor?: (data: any) => any;
     readonly className?: string;
     readonly changeFormat?: (n: number | { valueOf(): number }) => string;
+    readonly volumeFormat?: (n: number | { valueOf(): number }) => string;
     readonly displayTexts?: {
         o: string;
         h: string;
         l: string;
         c: string;
+        v: string;
         na: string;
     };
     readonly displayValuesFor?: (props: OHLCTooltipProps, moreProps: any) => any;
@@ -40,6 +43,7 @@ export class OHLCTooltip extends React.Component<OHLCTooltipProps> {
     public static defaultProps = {
         accessor: (d: unknown) => d,
         changeFormat: format("+.2f"),
+        volumeFormat: format(".4s"),
         className: "react-financial-charts-tooltip-hover",
         displayTexts: displayTextsDefault,
         displayValuesFor: (_: any, props: any) => props.currentItem,
@@ -57,6 +61,7 @@ export class OHLCTooltip extends React.Component<OHLCTooltipProps> {
         const {
             accessor,
             changeFormat = OHLCTooltip.defaultProps.changeFormat,
+            volumeFormat = OHLCTooltip.defaultProps.volumeFormat,
             className,
             displayTexts = OHLCTooltip.defaultProps.displayTexts,
             displayValuesFor = OHLCTooltip.defaultProps.displayValuesFor,
@@ -82,6 +87,7 @@ export class OHLCTooltip extends React.Component<OHLCTooltipProps> {
         let high: string = displayTexts.na;
         let low: string = displayTexts.na;
         let close: string = displayTexts.na;
+        let volume: string = displayTexts.na;
         let change: string = displayTexts.na;
 
         if (currentItem !== undefined && accessor !== undefined) {
@@ -91,8 +97,12 @@ export class OHLCTooltip extends React.Component<OHLCTooltipProps> {
                 high = ohlcFormat(item.high);
                 low = ohlcFormat(item.low);
                 close = ohlcFormat(item.close);
-                change = `${changeFormat(item.close - item.open)} (${percentFormat(
-                    (item.close - item.open) / item.open,
+                volume = volumeFormat(item.volume);
+
+                const prevItem = fullData[currentItem.idx.index - 1];
+                const prevClose = prevItem?.close || item.open;
+                change = `${changeFormat(item.close - prevClose)} (${percentFormat(
+                    (item.close - prevClose) / prevClose,
                 )})`;
             }
         }
@@ -127,6 +137,12 @@ export class OHLCTooltip extends React.Component<OHLCTooltipProps> {
                     </ToolTipTSpanLabel>
                     <tspan key="value_C" fill={valueFill}>
                         {close}
+                    </tspan>
+                    <ToolTipTSpanLabel fill={labelFill} fontWeight={labelFontWeight} key="label_V">
+                        {displayTexts.v}
+                    </ToolTipTSpanLabel>
+                    <tspan key="value_V" fill={valueFill}>
+                        {volume}
                     </tspan>
                     <tspan key="value_Change" fill={valueFill}>
                         {` ${change}`}

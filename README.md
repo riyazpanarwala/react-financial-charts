@@ -4,9 +4,9 @@
 
 > **Note:** v1 is a fully breaking change with large parts, if not all, rewritten. Do not expect the same API! although the same features should exist.
 
-![ci](https://github.com/react-financial/react-financial-charts/workflows/ci/badge.svg)
-[![codecov](https://codecov.io/gh/reactivemarkets/react-financial-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/reactivemarkets/react-financial-charts)
-[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/react-financial/react-financial-charts/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@riyazpanarwala/react-financial-charts.svg?style=flat)](https://www.npmjs.com/package/@riyazpanarwala/react-financial-charts)
+[![ci](https://github.com/riyazpanarwala/react-financial-charts/actions/workflows/ci.yml/badge.svg)](https://github.com/riyazpanarwala/react-financial-charts/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/riyazpanarwala/react-financial-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/riyazpanarwala/react-financial-charts)
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/riyazpanarwala/react-financial-charts/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/@riyazpanarwala/react-financial-charts.svg?style=flat)](https://www.npmjs.com/package/@riyazpanarwala/react-financial-charts)
 
 Charts dedicated to finance.
 
@@ -67,7 +67,7 @@ npm install @riyazpanarwala/react-financial-charts
 
 Refer to [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-This project is a mono-repo that uses [Lerna](https://lerna.js.org/) to manage dependencies between packages.
+This project is a mono-repo that uses [npm Workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces) to manage dependencies between packages.
 
 To get started run:
 

@@ -635,8 +635,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
         const plotData = postCalculator(beforePlotData);
 
         const updatedScale = initialXScale.copy().domain(domain) as
-            | ScaleContinuousNumeric<number, number>
-            | ScaleTime<number, number>;
+            ScaleContinuousNumeric<number, number> | ScaleTime<number, number>;
 
         const chartConfigs = getChartConfigWithUpdatedYScales(
             initialChartConfig,
@@ -688,8 +687,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
         const plotData = postCalculator(beforePlotData);
 
         const updatedScale = initialXScale!.copy().domain(domain) as
-            | ScaleContinuousNumeric<number, number>
-            | ScaleTime<number, number>;
+            ScaleContinuousNumeric<number, number> | ScaleTime<number, number>;
 
         const mouseXY = finalPinch.touch1Pos;
 
@@ -954,8 +952,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
         });
 
         const updatedScale = initialXScale.copy().domain(domain) as
-            | ScaleContinuousNumeric<number, number>
-            | ScaleTime<number, number>;
+            ScaleContinuousNumeric<number, number> | ScaleTime<number, number>;
 
         const plotData = postCalculator(beforePlotData);
 

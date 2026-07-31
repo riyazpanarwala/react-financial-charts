@@ -59,11 +59,11 @@ export default function () {
                                 ? "falling"
                                 : "rising"
                             : fallingSar < now.high
-                            ? "rising"
-                            : "falling"
+                              ? "rising"
+                              : "falling"
                         : risingSar > now.low
-                        ? "falling"
-                        : "rising";
+                          ? "falling"
+                          : "rising";
 
                 const current =
                     prev.use === use

@@ -76,8 +76,7 @@ function extentsWrapper<TDomain extends number | Date>(
         const realInputDomain = clampedDomain;
 
         const xScale = initialXScale.copy().domain(realInputDomain) as
-            | ScaleContinuousNumeric<number, number>
-            | ScaleTime<number, number>;
+            ScaleContinuousNumeric<number, number> | ScaleTime<number, number>;
 
         let width = Math.floor(xScale(xAccessor(last(filteredData))) - xScale(xAccessor(head(filteredData))));
 

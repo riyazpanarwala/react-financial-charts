@@ -43,6 +43,6 @@
     },
     "dependencies": {
         "@riyazpanarwala/core": "file:../core",
-        "@types/d3-scale": "^4.0.8"
+        "@types/d3-scale": "^4.0.9"
     }
 }

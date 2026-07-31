@@ -27,7 +27,7 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
     };
 
     public static contextType = ChartContext;
-    public declare context: React.ContextType<typeof ChartContext>;
+    declare public context: React.ContextType<typeof ChartContext>;
 
     private interval?: number;
 

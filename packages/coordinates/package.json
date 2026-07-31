@@ -39,7 +39,7 @@
     },
     "dependencies": {
         "@riyazpanarwala/core": "file:../core",
-        "d3-format": "^2.0.0"
+        "d3-format": "^3.1.2"
     },
     "peerDependencies": {
         "react": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",

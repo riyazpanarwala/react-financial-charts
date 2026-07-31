@@ -67,7 +67,7 @@ export class YAxis extends React.Component<YAxisProps> {
     };
 
     public static contextType = ChartContext;
-    public declare context: React.ContextType<typeof ChartContext>;
+    declare public context: React.ContextType<typeof ChartContext>;
 
     public render() {
         const {

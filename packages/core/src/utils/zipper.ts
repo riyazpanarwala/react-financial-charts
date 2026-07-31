@@ -20,9 +20,9 @@ export default function zipper() {
         const m = min(arguments, d3_zipLength) ?? 0;
 
         const zips = new Array(m);
-        for (let i = -1; ++i < m; ) {
+        for (let i = -1; ++i < m;) {
             // tslint:disable-next-line: no-shadowed-variable
-            for (let j = -1, zip = (zips[i] = new Array(n)); ++j < n; ) {
+            for (let j = -1, zip = (zips[i] = new Array(n)); ++j < n;) {
                 zip[j] = arguments[j][i];
             }
 

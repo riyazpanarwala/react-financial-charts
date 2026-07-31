@@ -33,7 +33,7 @@ export class Label extends React.Component<LabelProps> {
     };
 
     public static contextType = ChartCanvasContext;
-    public declare context: React.ContextType<typeof ChartCanvasContext>;
+    declare public context: React.ContextType<typeof ChartCanvasContext>;
 
     public render() {
         const { selectCanvas } = this.props;

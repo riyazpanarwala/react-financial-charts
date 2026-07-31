@@ -27,8 +27,7 @@ export interface AreaOnlySeriesProps {
      * Color, gradient, or pattern to use for fill.
      */
     readonly fillStyle?:
-        | string
-        | ((context: CanvasRenderingContext2D, moreProps: any) => string | CanvasGradient | CanvasPattern);
+        string | ((context: CanvasRenderingContext2D, moreProps: any) => string | CanvasGradient | CanvasPattern);
     /**
      * Selector for data to plot.
      */

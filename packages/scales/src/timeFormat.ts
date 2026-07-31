@@ -15,17 +15,17 @@ export const timeFormat = (date: Date) => {
         timeSecond(date) < date
             ? formatMillisecond
             : timeMinute(date) < date
-            ? formatSecond
-            : timeHour(date) < date
-            ? formatMinute
-            : timeDay(date) < date
-            ? formatHour
-            : timeMonth(date) < date
-            ? timeWeek(date) < date
-                ? formatDay
-                : formatWeek
-            : timeYear(date) < date
-            ? formatMonth
-            : formatYear
+              ? formatSecond
+              : timeHour(date) < date
+                ? formatMinute
+                : timeDay(date) < date
+                  ? formatHour
+                  : timeMonth(date) < date
+                    ? timeWeek(date) < date
+                        ? formatDay
+                        : formatWeek
+                    : timeYear(date) < date
+                      ? formatMonth
+                      : formatYear
     )(date);
 };

@@ -64,7 +64,7 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
         enableDragOnHover: false,
     };
 
-    public declare context: React.ContextType<typeof ChartCanvasContext>;
+    declare public context: React.ContextType<typeof ChartCanvasContext>;
 
     public moreProps: any = {};
 

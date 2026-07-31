@@ -67,7 +67,7 @@ export class XAxis<T extends number | Date> extends React.Component<XAxisProps<T
     };
 
     public static contextType = ChartContext;
-    public declare context: React.ContextType<typeof ChartContext>;
+    declare public context: React.ContextType<typeof ChartContext>;
 
     public render() {
         const {

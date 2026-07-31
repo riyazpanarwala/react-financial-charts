@@ -57,7 +57,7 @@ export class InteractiveText extends React.Component<InteractiveTextProps, Inter
     };
 
     public static contextType = ChartContext;
-    public declare context: React.ContextType<typeof ChartContext>;
+    declare public context: React.ContextType<typeof ChartContext>;
 
     // @ts-ignore
     private getSelectionState: any;

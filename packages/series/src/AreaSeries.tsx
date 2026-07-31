@@ -10,8 +10,7 @@ export interface AreaSeriesProps {
      * The base y value to draw the area to.
      */
     readonly baseAt?:
-        | number
-        | ((yScale: ScaleContinuousNumeric<number, number>, d: [number, number], moreProps: any) => number);
+        number | ((yScale: ScaleContinuousNumeric<number, number>, d: [number, number], moreProps: any) => number);
     readonly canvasClip?: (context: CanvasRenderingContext2D, moreProps: any) => void;
     /**
      * Whether to connect the area between undefined data points.
@@ -21,8 +20,7 @@ export interface AreaSeriesProps {
      * Color, gradient, or pattern to use for fill.
      */
     readonly fillStyle?:
-        | string
-        | ((context: CanvasRenderingContext2D, moreProps: any) => string | CanvasGradient | CanvasPattern);
+        string | ((context: CanvasRenderingContext2D, moreProps: any) => string | CanvasGradient | CanvasPattern);
     /**
      * A factory for a curve generator for the area and line.
      */

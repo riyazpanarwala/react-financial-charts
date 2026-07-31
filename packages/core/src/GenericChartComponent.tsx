@@ -7,7 +7,7 @@ const ALWAYS_TRUE_TYPES = ["drag", "dragend"];
 export class GenericChartComponent extends GenericComponent {
     public static defaultProps = GenericComponent.defaultProps;
     public static contextType = ChartContext;
-    public declare context: React.ContextType<typeof ChartContext>;
+    declare public context: React.ContextType<typeof ChartContext>;
 
     public constructor(props: any, context: any) {
         super(props, context);

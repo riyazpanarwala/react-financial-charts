@@ -58,9 +58,19 @@ The aim with this project is create financial charts that work out of the box.
 npm install @riyazpanarwala/react-financial-charts
 ```
 
+## Requirements
+
+-   Node.js `>= 20.0.0`
+-   npm `>= 10.0.0`
+-   React `^18.0.0 || ^19.0.0`
+
 ## Documentation
 
-[Stories](https://react-financial.github.io/react-financial-charts/)
+To view the interactive Storybook documentation locally, run:
+
+```bash
+npm start
+```
 
 ## Contributing
 
@@ -83,6 +93,13 @@ To start up a development server run:
 npm start
 ```
 
+### Useful Scripts
+
+- `npm run build`: Builds all workspace packages in topological order.
+- `npm start`: Launches Storybook development environment.
+- `npm test`: Runs unit test suites across all packages.
+- `npm run lint`: Runs ESLint 9 across the monorepo.
+
 ## Roadmap
 
 -   [x] Convert to typescript
@@ -99,9 +116,14 @@ npm start
 -   [x] Correct all class props
 -   [x] Migrate to new React Context API
 -   [x] Remove all UNSAFE methods
+-   [x] Migrate from Lerna to npm Workspaces
+-   [x] Upgrade to React 19 & Node 22
+-   [x] Upgrade Storybook to v8 & Vite 6
+-   [x] Upgrade ESLint to v9 (Flat Config)
+-   [x] Add automated NPM publishing scripts
 -   [ ] Add documentation to storybook
 -   [ ] Add full test suite
 
 ## LICENSE
 
-[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B13613%2Fgit%40github.com%3Areactivemarkets%2Freact-financial-charts.git.svg?type=large)](https://app.fossa.com/projects/custom%2B13613%2Fgit%40github.com%3Areactivemarkets%2Freact-financial-charts.git?ref=badge_large)
+[MIT](./LICENSE)

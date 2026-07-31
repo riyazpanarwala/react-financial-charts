@@ -3,11 +3,80 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [2.0.1](https://github.com/markmcdowell/react-financial-charts/compare/v2.0.0...v2.0.1) (2023-05-13)
+# [3.0.0](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.10...v3.0.0) (2026-07-31)
 
-**Note:** Version bump only for package root
+### Features
 
-# [2.0.0](https://github.com/markmcdowell/react-financial-charts/compare/v1.3.2...v2.0.0) (2023-05-12)
+- **react:** upgraded support to React 19 (`^18.0.0 || ^19.0.0`) and Node.js (`>= 20.0.0`) ([7ee7100](https://github.com/riyazpanarwala/react-financial-charts/commit/7ee7100))
+- **deps:** upgraded Storybook to v8 (Vite 6 builder), ESLint to v9 flat config, TypeScript to ~5.7.3, and core dependencies ([2c7fa68](https://github.com/riyazpanarwala/react-financial-charts/commit/2c7fa68))
+
+### BREAKING CHANGES
+
+- **react:** React 19 and Node 20+ are now required minimum runtime environments.
+
+## [2.0.10](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.9...v2.0.10) (2025-02-06)
+
+### Features
+
+- **tooltip:** added volume display to `OHLCTooltip` and updated price/percent change calculation logic ([6701fcc](https://github.com/riyazpanarwala/react-financial-charts/commit/6701fcc))
+- **publish:** added condition to skip already published package versions ([b12e367](https://github.com/riyazpanarwala/react-financial-charts/commit/b12e367))
+
+## [2.0.9](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.8...v2.0.9) (2025-01-24)
+
+### Features
+
+- **package:** updated root package name to `@riyazpanarwala` scope ([245820d](https://github.com/riyazpanarwala/react-financial-charts/commit/245820d))
+
+## [2.0.8](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.7...v2.0.8) (2025-01-24)
+
+### Features
+
+- **publish:** added version update scripts for automated NPM publishing ([a79d2e5](https://github.com/riyazpanarwala/react-financial-charts/commit/a79d2e5))
+
+## [2.0.7](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.6...v2.0.7) (2025-01-24)
+
+### Features
+
+- **publish:** added new npm publish automation scripts ([12ad105](https://github.com/riyazpanarwala/react-financial-charts/commit/12ad105))
+
+## [2.0.6](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.5...v2.0.6) (2025-01-23)
+
+### Features
+
+- **workspaces:** migrated from Lerna to native **npm Workspaces** ([e597702](https://github.com/riyazpanarwala/react-financial-charts/commit/e597702))
+- **build:** renamed build script to `buildPackage` in root package.json ([e6f0f97](https://github.com/riyazpanarwala/react-financial-charts/commit/e6f0f97))
+- **deps:** added React 19 as peer dependency ([48f3c41](https://github.com/riyazpanarwala/react-financial-charts/commit/48f3c41))
+
+### Bug Fixes
+
+- **interactive:** resolved Risk/Reward interactive tool positioning & rendering fixes ([d83db71](https://github.com/riyazpanarwala/react-financial-charts/commit/d83db71))
+
+## [2.0.5](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.4...v2.0.5) (2024-12-20)
+
+### Features
+
+- **deps:** updated `d3-scale`, `d3-interpolate`, TypeScript, and ESLint configs ([071375f](https://github.com/riyazpanarwala/react-financial-charts/commit/071375f))
+
+## [2.0.1](https://github.com/riyazpanarwala/react-financial-charts/compare/v2.0.0...v2.0.1) (2024-12-18)
+
+### Features
+
+- **npm:** configured public access and published packages under `@riyazpanarwala` scope ([e0f8e63](https://github.com/riyazpanarwala/react-financial-charts/commit/e0f8e63))
+
+# [2.0.0](https://github.com/riyazpanarwala/react-financial-charts/compare/v1.3.2...v2.0.0) (2024-12-18)
+
+### Features
+
+- **scope:** renamed package workspace to `@riyazpanarwala/react-financial-charts` ([d359188](https://github.com/riyazpanarwala/react-financial-charts/commit/d359188))
+- **interactive:** enhanced Risk/Reward interactive tool (added delete handling, smoothed drag, enlarged hitboxes) ([ba4dc21](https://github.com/riyazpanarwala/react-financial-charts/commit/ba4dc21), [95b93cf](https://github.com/riyazpanarwala/react-financial-charts/commit/95b93cf))
+
+### Bug Fixes
+
+- **interactive:** fixed Risk/Reward horizontal and long position overlap issues ([a3ff901](https://github.com/riyazpanarwala/react-financial-charts/commit/a3ff901))
+- **interactive:** fixed edge text color when dragging Risk/Reward component ([b8a8e5e](https://github.com/riyazpanarwala/react-financial-charts/commit/b8a8e5e))
+- **core:** fixed canvas panning issue during chart drag ([a41248e](https://github.com/riyazpanarwala/react-financial-charts/commit/a41248e))
+
+# [2.0.0-upstream](https://github.com/react-financial/react-financial-charts/compare/v1.3.2...v2.0.0) (2023-05-12)
 
 ### Bug Fixes
 

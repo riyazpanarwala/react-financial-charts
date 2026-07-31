@@ -8,6 +8,7 @@
         "npm": ">=10.0.0"
     },
     "scripts": {
+        "build": "npm run buildPackage",
         "buildPackage": "run-s build:utils build:core build:scales build:coordinates build:axes build:series build:indicators build:annotations build:interactive build:tooltip build:charts",
         "build:annotations": "npm run build --workspace=packages/annotations",
         "build:axes": "npm run build --workspace=packages/axes",

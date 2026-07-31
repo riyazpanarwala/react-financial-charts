@@ -4,8 +4,7 @@
 
 > **Note:** v1 is a fully breaking change with large parts, if not all, rewritten. Do not expect the same API! although the same features should exist.
 
-[![ci](https://github.com/riyazpanarwala/react-financial-charts/actions/workflows/ci.yml/badge.svg)](https://github.com/riyazpanarwala/react-financial-charts/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/riyazpanarwala/react-financial-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/riyazpanarwala/react-financial-charts)
+[![ci](https://img.shields.io/github/actions/workflow/status/riyazpanarwala/react-financial-charts/ci.yml?branch=main&label=ci)](https://github.com/riyazpanarwala/react-financial-charts/actions)
 [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/riyazpanarwala/react-financial-charts/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/@riyazpanarwala/react-financial-charts.svg?style=flat)](https://www.npmjs.com/package/@riyazpanarwala/react-financial-charts)
 
 Charts dedicated to finance.

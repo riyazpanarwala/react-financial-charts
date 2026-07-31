@@ -19,6 +19,7 @@
     "noResolve": false,
     "outDir": "lib",
     "sourceMap": true,
+    "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
     "target": "es6"

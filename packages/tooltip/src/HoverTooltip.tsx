@@ -226,6 +226,7 @@ export class HoverTooltip extends React.Component<HoverTooltipProps> {
     };
 
     public static contextType = ChartCanvasContext;
+    public declare context: React.ContextType<typeof ChartCanvasContext>;
 
     public render() {
         return <GenericComponent canvasDraw={this.drawOnCanvas} drawOn={["mousemove", "pan"]} />;

@@ -63,6 +63,7 @@ export default [
             "@typescript-eslint/no-unused-vars": "off",
             "@typescript-eslint/no-unsafe-function-type": "off",
             "@typescript-eslint/no-empty-object-type": "off",
+            "@typescript-eslint/no-require-imports": "off",
             "react/display-name": "off",
             "react/prop-types": "off",
             "arrow-spacing": "error",

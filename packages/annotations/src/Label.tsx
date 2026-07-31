@@ -33,6 +33,7 @@ export class Label extends React.Component<LabelProps> {
     };
 
     public static contextType = ChartCanvasContext;
+    public declare context: React.ContextType<typeof ChartCanvasContext>;
 
     public render() {
         const { selectCanvas } = this.props;
@@ -45,7 +46,7 @@ export class Label extends React.Component<LabelProps> {
 
         const { textAlign = "center", fontFamily, fontSize, fontWeight, rotate } = this.props;
 
-        const { canvasOriginX, canvasOriginY, margin, ratio } = this.context;
+        const { canvasOriginX, canvasOriginY, margin, ratio } = this.context as any;
 
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(ratio, ratio);

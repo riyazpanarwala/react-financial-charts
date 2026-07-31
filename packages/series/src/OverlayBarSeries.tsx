@@ -1,13 +1,7 @@
 import { merge } from "d3-array";
 import { ScaleContinuousNumeric, ScaleTime } from "d3-scale";
 import * as React from "react";
-import {
-    first,
-    functor,
-    getAxisCanvas,
-    GenericChartComponent,
-    plotDataLengthBarWidth,
-} from "@riyazpanarwala/core";
+import { first, functor, getAxisCanvas, GenericChartComponent, plotDataLengthBarWidth } from "@riyazpanarwala/core";
 import { drawOnCanvas2 } from "./StackedBarSeries";
 
 export interface OverlayBarSeriesProps {

@@ -1,12 +1,7 @@
 import * as React from "react";
 import { drawOnCanvas } from "@riyazpanarwala/coordinates/lib/EdgeCoordinateV3";
 import { getYCoordinate } from "@riyazpanarwala/coordinates/lib/MouseCoordinateY";
-import {
-    getStrokeDasharrayCanvas,
-    getMouseCanvas,
-    GenericChartComponent,
-    strokeDashTypes,
-} from "@riyazpanarwala/core";
+import { getStrokeDasharrayCanvas, getMouseCanvas, GenericChartComponent, strokeDashTypes } from "@riyazpanarwala/core";
 
 export interface InteractiveYCoordinateProps {
     readonly bgFillStyle: string;

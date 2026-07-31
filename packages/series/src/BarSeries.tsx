@@ -1,10 +1,4 @@
-import {
-    functor,
-    head,
-    getAxisCanvas,
-    GenericChartComponent,
-    plotDataLengthBarWidth,
-} from "@riyazpanarwala/core";
+import { functor, head, getAxisCanvas, GenericChartComponent, plotDataLengthBarWidth } from "@riyazpanarwala/core";
 import { group } from "d3-array";
 import { ScaleContinuousNumeric, ScaleTime } from "d3-scale";
 import * as React from "react";

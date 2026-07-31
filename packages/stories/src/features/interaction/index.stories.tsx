@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-    lastVisibleItemBasedZoomAnchor,
-    mouseBasedZoomAnchor,
-    rightDomainBasedZoomAnchor,
-} from "@riyazpanarwala/core";
+import { lastVisibleItemBasedZoomAnchor, mouseBasedZoomAnchor, rightDomainBasedZoomAnchor } from "@riyazpanarwala/core";
 import { ChartCanvas } from "../../../../core/src/ChartCanvas";
 import Interaction from "./Interaction";
 

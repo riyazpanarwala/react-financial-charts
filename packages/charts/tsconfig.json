@@ -12,6 +12,7 @@
         "noUnusedLocals": true,
         "outDir": "lib",
         "sourceMap": true,
+        "skipLibCheck": true,
         "strict": true,
         "target": "es2017"
     },

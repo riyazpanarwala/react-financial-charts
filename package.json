@@ -3,8 +3,12 @@
     "private": true,
     "author": "Riyaz Panarwala",
     "license": "ISC",
+    "engines": {
+        "node": ">=20.0.0",
+        "npm": ">=10.0.0"
+    },
     "scripts": {
-        "buildPackage": "run-s build:*",
+        "buildPackage": "run-s build:utils build:core build:scales build:coordinates build:axes build:series build:indicators build:annotations build:interactive build:tooltip build:charts",
         "build:annotations": "npm run build --workspace=packages/annotations",
         "build:axes": "npm run build --workspace=packages/axes",
         "build:charts": "npm run build --workspace=packages/charts",
@@ -21,7 +25,7 @@
         "clean:modules": "npm run clean --workspaces",
         "convert": "npm run link",
         "docs": "run-s buildPackage docs:stories",
-        "docs:stories": "npm run docs --workspaces",
+        "docs:stories": "npm run docs --workspace=packages/stories",
         "link": "npm link",
         "lint": "eslint . --quiet",
         "lint:fix": "eslint . --quiet --fix",
@@ -73,8 +77,8 @@
         "@types/d3-shape": "^2.0.0",
         "@types/d3-time-format": "^3.0.0",
         "@types/lodash.flattendeep": "^4.4.6",
-        "@types/react": "^17.0.2",
-        "@types/react-dom": "^17.0.1",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0",
         "@typescript-eslint/eslint-plugin": "^8.18.2",
         "@typescript-eslint/parser": "^8.18.2",
         "babel-loader": "^8.2.2",

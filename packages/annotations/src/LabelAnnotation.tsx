@@ -88,7 +88,7 @@ export class LabelAnnotation extends React.Component<LabelAnnotationProps> {
                     opacity={opacity}
                     transform={`rotate(${rotate}, ${xPos}, ${yPos})`}
                     onClick={this.handleClick}
-                    textAnchor={textAnchor}
+                    textAnchor={textAnchor as any}
                 >
                     {text}
                 </text>

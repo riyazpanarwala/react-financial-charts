@@ -67,6 +67,7 @@ export class YAxis extends React.Component<YAxisProps> {
     };
 
     public static contextType = ChartContext;
+    public declare context: React.ContextType<typeof ChartContext>;
 
     public render() {
         const {
@@ -97,7 +98,7 @@ export class YAxis extends React.Component<YAxisProps> {
     private readonly axisZoomCallback = (newYDomain: number[]) => {
         const { chartId, yAxisZoom } = this.context;
 
-        yAxisZoom(chartId, newYDomain);
+        yAxisZoom?.(chartId as any, newYDomain);
     };
 
     private readonly helper = () => {
@@ -106,30 +107,28 @@ export class YAxis extends React.Component<YAxisProps> {
             chartConfig: { width, height },
         } = this.context;
 
-        let axisLocation;
+        let axisLocation: number;
+        if (typeof axisAt === "function") {
+            axisLocation = (axisAt as any)(width);
+        } else if (axisAt === "left") {
+            axisLocation = 0;
+        } else if (axisAt === "right") {
+            axisLocation = width;
+        } else if (axisAt === "middle") {
+            axisLocation = width / 2;
+        } else {
+            axisLocation = (axisAt as number) ?? 0;
+        }
+
         const y = 0;
         const w = yZoomWidth;
         const h = height;
 
-        switch (axisAt) {
-            case "left":
-                axisLocation = 0;
-                break;
-            case "right":
-                axisLocation = width;
-                break;
-            case "middle":
-                axisLocation = width / 2;
-                break;
-            default:
-                axisLocation = axisAt;
-        }
-
         const x = orient === "left" ? -yZoomWidth : 0;
 
         return {
-            transform: [axisLocation, 0],
-            range: [0, height],
+            transform: [axisLocation, 0] as [number, number],
+            range: [0, height] as [number, number],
             getScale: this.getYScale,
             bg: { x, y, h, w },
             ticks: ticks ?? this.getYTicks(height),

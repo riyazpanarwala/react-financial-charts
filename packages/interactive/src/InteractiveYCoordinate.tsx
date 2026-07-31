@@ -124,6 +124,7 @@ export class InteractiveYCoordinate extends React.Component<InteractiveYCoordina
     };
 
     public static contextType = ChartContext;
+    public declare context: React.ContextType<typeof ChartContext>;
 
     // @ts-ignore
     private getSelectionState: any;

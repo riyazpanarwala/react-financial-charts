@@ -67,6 +67,7 @@ export class XAxis<T extends number | Date> extends React.Component<XAxisProps<T
     };
 
     public static contextType = ChartContext;
+    public declare context: React.ContextType<typeof ChartContext>;
 
     public render() {
         const {
@@ -99,7 +100,7 @@ export class XAxis<T extends number | Date> extends React.Component<XAxisProps<T
     private readonly axisZoomCallback = (newXDomain: number[]) => {
         const { xAxisZoom } = this.context;
 
-        xAxisZoom(newXDomain);
+        xAxisZoom?.(newXDomain);
     };
 
     private readonly helper = () => {
@@ -108,30 +109,28 @@ export class XAxis<T extends number | Date> extends React.Component<XAxisProps<T
             chartConfig: { width, height },
         } = this.context;
 
-        let axisLocation;
+        let axisLocation: number;
+        if (typeof axisAt === "function") {
+            axisLocation = (axisAt as any)(height);
+        } else if (axisAt === "top") {
+            axisLocation = 0;
+        } else if (axisAt === "bottom") {
+            axisLocation = height;
+        } else if (axisAt === "middle") {
+            axisLocation = height / 2;
+        } else {
+            axisLocation = (axisAt as number) ?? 0;
+        }
+
         const x = 0;
         const w = width;
         const h = xZoomHeight;
 
-        switch (axisAt) {
-            case "top":
-                axisLocation = 0;
-                break;
-            case "bottom":
-                axisLocation = height;
-                break;
-            case "middle":
-                axisLocation = height / 2;
-                break;
-            default:
-                axisLocation = axisAt;
-        }
-
         const y = orient === "top" ? -xZoomHeight : 0;
 
         return {
-            transform: [0, axisLocation],
-            range: [0, width],
+            transform: [0, axisLocation] as [number, number],
+            range: [0, width] as [number, number],
             getScale: this.getXScale,
             bg: { x, y, h, w },
             ticks: ticks ?? this.getXTicks(width),

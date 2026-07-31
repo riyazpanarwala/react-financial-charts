@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-    getStrokeDasharrayCanvas,
-    getMouseCanvas,
-    GenericChartComponent,
-    strokeDashTypes,
-} from "@riyazpanarwala/core";
+import { getStrokeDasharrayCanvas, getMouseCanvas, GenericChartComponent, strokeDashTypes } from "@riyazpanarwala/core";
 
 interface BrushProps {
     readonly enabled: boolean;

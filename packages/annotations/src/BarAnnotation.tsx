@@ -131,7 +131,7 @@ export class BarAnnotation extends React.Component<BarAnnotationProps> {
                         fill={textFill}
                         opacity={textOpacity}
                         transform={textRotate != undefined ? `rotate(${textRotate}, ${x}, ${y})` : undefined}
-                        textAnchor={textAnchor}
+                        textAnchor={textAnchor as any}
                     >
                         {text}
                     </text>
@@ -146,7 +146,7 @@ export class BarAnnotation extends React.Component<BarAnnotationProps> {
                         fill={textIconFill}
                         opacity={textIconOpacity}
                         transform={textIconRotate != undefined ? `rotate(${textIconRotate}, ${x}, ${y})` : undefined}
-                        textAnchor={textAnchor}
+                        textAnchor={textAnchor as any}
                     >
                         {textIcon}
                     </text>

@@ -68,7 +68,7 @@ export const renderSVG = (props: any) => {
                 key={2}
                 x={edge.coordinate.edgeXText}
                 y={edge.coordinate.edgeYText}
-                textAnchor={edge.coordinate.textAnchor}
+                textAnchor={edge.coordinate.textAnchor as any}
                 fontFamily={edge.coordinate.fontFamily}
                 fontSize={edge.coordinate.fontSize}
                 dy=".32em"

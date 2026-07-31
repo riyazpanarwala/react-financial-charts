@@ -1,11 +1,6 @@
 import { ScaleContinuousNumeric, ScaleTime } from "d3-scale";
 import * as React from "react";
-import {
-    getAxisCanvas,
-    getStrokeDasharrayCanvas,
-    GenericChartComponent,
-    strokeDashTypes,
-} from "@riyazpanarwala/core";
+import { getAxisCanvas, getStrokeDasharrayCanvas, GenericChartComponent, strokeDashTypes } from "@riyazpanarwala/core";
 
 export interface StraightLineProps {
     readonly lineDash?: strokeDashTypes | number[];
